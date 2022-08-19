@@ -1,0 +1,12 @@
+{
+  "name": "@manifest/manifest-github-action",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "author": "Manifest Team",
+  "keywords": [],
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@actions/core": "^1.9.1"
+  }
+}

@@ -1,0 +1,12 @@
+name: 'Manifest Cyber Github Action'
+description: 'Generate an SBOM and upload it to your Manifest Cyber account'
+inputs:
+  apiKey: 
+    description: 'An API key generated in the Manifest app'
+    required: true
+  input: 
+    description: 'The location of an sbom file'
+    required: true
+runs:
+  using: 'node16'
+  main: 'index.js'
