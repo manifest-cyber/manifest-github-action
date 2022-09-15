@@ -4,7 +4,7 @@ inputs:
   apiKey: 
     description: 'An API key generated in the Manifest app'
     required: true
-  input: 
+  bomFilePath: 
     description: 'The location of an sbom file'
     required: true
 runs:

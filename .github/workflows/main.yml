@@ -23,4 +23,4 @@ jobs:
         id: transmit
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          input: "./bom.json"
+          bomFilePath: "./bom.json"
