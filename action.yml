@@ -1,5 +1,5 @@
-name: 'Manifest Cyber Github Action'
-description: 'Generate an SBOM and upload it to your Manifest Cyber account'
+name: 'Manifest Cyber SBOM Transmitter'
+description: 'Transmit an SBOM to your Manifest Cyber account'
 inputs:
   apiKey: 
     description: 'An API key generated in the Manifest app'
