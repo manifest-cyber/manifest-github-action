@@ -22,7 +22,7 @@ This action sends a generated SBOM to a Manifest Cyber account
     path: "./"
     output: "./bom.json"
 - name: Transmit own SBOM
-  uses: @manifest/manifest-github-action@main
+  uses: manifest-cyber/manifest-github-action@main
   id: transmit
   with:
     apiKey: ${{ secrets.MANIFEST_API_KEY }}
