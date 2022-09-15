@@ -23,7 +23,7 @@ jobs:
         id: transmit
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          input: "./bom.json"
+          bomFilePath: "./bom.json"
       # Use the output from the `hello` step
       - name: Get the output link
         run: echo "The time was ${{ steps.transmit.outputs.link }}"

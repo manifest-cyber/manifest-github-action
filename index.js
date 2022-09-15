@@ -4,9 +4,9 @@ const core = require("@actions/core");
 
 try {
   const apiKey = core.getInput("apiKey");
-  const bomFilename = core.getInput("input");
+  const bomFilePath = core.getInput("bomFilePath");
 
-  const bomContents = fs.readFileSync(bomFilename);
+  const bomContents = fs.readFileSync(bomFilePath);
   const base64BomContents = Buffer.from(bomContents).toString("base64");
 
   const payload = {
@@ -30,7 +30,6 @@ try {
 
   const req = https.request(requestOptions, (res) => {
     const statusCode = res.statusCode;
-    let body = "";
     if (statusCode >= 200 && statusCode < 300) {
       console.log("Uploaded to Manifest Server");
     } else {
