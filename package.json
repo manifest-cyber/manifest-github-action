@@ -1,12 +1,16 @@
 {
   "name": "@manifest/manifest-github-action",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "author": "Manifest Team",
-  "keywords": [],
+  "author": "Manifest Engineering <engineering@manifestcyber.com>",
   "license": "UNLICENSED",
+  "keywords": [],
   "dependencies": {
-    "@actions/core": "^1.9.1"
+    "@actions/core": "^1.9.1",
+    "cross-env": "^7.0.3"
+  },
+  "scripts": {
+    "dev": "cross-env TEST_LOCALLY=enabled INPUT_apiKey=\"<MANIFEST-API-KEY>\" INPUT_bomFilePath=\"./test-sbom-example.json\" node index.js"
   }
 }

@@ -1,19 +1,30 @@
 # Manifest Github Action
-
-This action sends a generated SBOM to a Manifest Cyber account
+Use this action to upload a generated SBOM to your Manifest account. Requires a Manifest API key.
 
 ## Inputs
 
 ### `apiKey`
+**REQUIRED**
+`{STRING}`
 
-**Required** An API key. Generate this key in the Manifest Cyber app, and then store it in your Github actions secrets.
+Your Manifest API key. Generate this key in the Manifest Cyber app (https://app.manifestcyber.com), and then store it in your Github actions secrets.
 
 ### `bomFilePath`
+**REQUIRED**
+`{STRING}`
 
-**Required** The location of a BOM file. Accepts CycloneDX or SPDX SBOMs in JSON, XML, or SPDX tag:value format.
+The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON (recommended), XML, or SPDX tag:value format.
+
+### `relationship`
+**Optional**
+`{STRING}`
+
+The relationship of the software to your organization (e.g. first- vs third-party). In most cases, this will be `first`.
+Accepted values: `first`, `third`. Default: `first`.
 
 
-## Example usage
+## Example Usage
+The below example shows how you might a) generate an SBOM via CycloneDX, and b) transmit the SBOM directly to your Manifest account.
 
 ```
 - name: Build SBOM
@@ -27,4 +38,9 @@ This action sends a generated SBOM to a Manifest Cyber account
   with:
     apiKey: ${{ secrets.MANIFEST_API_KEY }}
     bomFilePath: "./bom.json"
+    relationship: "first"
 ```
+
+
+## Local Testing
+An example SBOM `test-sbom-example.json` is included, as well as a `dev` script in `package.json` for local testing.
