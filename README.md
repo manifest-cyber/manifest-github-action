@@ -33,7 +33,7 @@ The below example shows how you might a) generate an SBOM via CycloneDX, and b) 
     path: "./"
     output: "./bom.json"
 - name: Transmit own SBOM
-  uses: manifest-cyber/manifest-github-action@main
+  uses: manifest-cyber/manifest-github-action@v1
   id: transmit
   with:
     apiKey: ${{ secrets.MANIFEST_API_KEY }}
