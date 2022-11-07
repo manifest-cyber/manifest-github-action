@@ -35,7 +35,7 @@ try {
   /**
    * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. You can safely ignore the below `if` statement - the `else` clause will always fire during normal use of this action.
    */
-  if (!process.env.TEST_LOCALLY && process.env.TEST_LOCALLY === 'enabled') {
+  if (process.env.TEST_LOCALLY && process.env.TEST_LOCALLY === 'enabled') {
     req = http.request(`http://local.manifestcyber.com:8081/v1/sbom/upload`, requestOptions, (res) => {
       const statusCode = res.statusCode;
       if (statusCode >= 200 && statusCode < 300) {
