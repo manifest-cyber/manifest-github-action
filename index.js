@@ -49,7 +49,7 @@ try {
   }
   
   else {
-    req = https.request(`https://api.manifestcyber.com/v1/sbom/upload`, requestOptions, (res) => {
+    req = https.request(`https://api-v1.manifestcyber.com/v1/sbom/upload`, requestOptions, (res) => {
       const statusCode = res.statusCode;
       if (statusCode >= 200 && statusCode < 300) {
         console.log("Uploaded to Manifest Server");
