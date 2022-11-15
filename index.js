@@ -7,7 +7,7 @@ const path = require('path');
 try {
   const apiKey = core.getInput("apiKey");
   const bomFilePath = core.getInput("bomFilePath");
-  let assetRelationship = core.getInput("relationship");
+  const assetRelationship = core.getInput("relationship");
   const bomContents = fs.readFileSync(bomFilePath);
   const base64BomContents = Buffer.from(bomContents).toString("base64");
 
@@ -33,7 +33,8 @@ try {
   let req = null;
 
   /**
-   * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. You can safely ignore the below `if` statement - the `else` clause will always fire during normal use of this action.
+   * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. You can safely ignore the below `if` statement - the `else` clause will always fire during normal production use of this action. We include for both transparency to you and our own convenience.
+   * If you have a better idea or suggested improvements, fork/PR or ping us at engineering@manifestcyber.com and we'd love to chat over a virtual cup of coffee :)
    */
   if (process.env.TEST_LOCALLY && process.env.TEST_LOCALLY === 'enabled') {
     req = http.request(`http://local.manifestcyber.com:8081/v1/sbom/upload`, requestOptions, (res) => {
@@ -49,7 +50,7 @@ try {
   }
   
   else {
-    req = https.request(`https://api-v1.manifestcyber.com/v1/sbom/upload`, requestOptions, (res) => {
+    req = https.request(`https://api.manifestcyber.com/v1/sbom/upload`, requestOptions, (res) => {
       const statusCode = res.statusCode;
       if (statusCode >= 200 && statusCode < 300) {
         console.log("Uploaded to Manifest Server");
