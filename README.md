@@ -22,6 +22,13 @@ The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON (
 The relationship of the software to your organization (e.g. first- vs third-party). In most cases, this will be `first`.
 Accepted values: `first`, `third`. Default: `first`.
 
+### `source`
+**Optional**
+`{STRING}`
+
+The source of the uploaded SBOM. This will be visible to you in the Manifest app and is intended for tracking/analytics purposes. We generally recommend not to change this, but you do you :)
+Accepts any string. Default: `github-action`.
+
 
 ## Example Usage
 The below example shows how you might a) generate an SBOM via CycloneDX, and b) transmit the SBOM directly to your Manifest account.
@@ -33,7 +40,7 @@ The below example shows how you might a) generate an SBOM via CycloneDX, and b) 
     path: "./"
     output: "./bom.json"
 - name: Transmit own SBOM
-  uses: manifest-cyber/manifest-github-action@v1
+  uses: manifest-cyber/manifest-github-action@main
   id: transmit
   with:
     apiKey: ${{ secrets.MANIFEST_API_KEY }}
