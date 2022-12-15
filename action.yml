@@ -9,5 +9,4 @@ inputs:
     required: true
 runs:
   using: 'node16'
-  pre: 'update-sbom.js'
   main: 'index.js'

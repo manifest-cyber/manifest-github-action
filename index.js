@@ -3,14 +3,30 @@ const https = require("https");
 const http = require("http");
 const core = require("@actions/core");
 const path = require('path');
+const { exec } = require("child_process");
+
+
 
 try {
+
   const apiKey = core.getInput("apiKey");
   const bomFilePath = core.getInput("bomFilePath");
   const assetRelationship = core.getInput("relationship");
   const bomSource = core.getInput("source");
   const bomContents = fs.readFileSync(bomFilePath);
   const base64BomContents = Buffer.from(bomContents).toString("base64");
+
+  exec("sh update-sbom.sh", (error, stdout, stderr) => {
+    if (error) {
+      core.setFailed(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      core.setFailed(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  });
 
   const payload = {
     base64BomContents, // Incoming file Buffer
@@ -49,7 +65,7 @@ try {
       }
     });
   }
-  
+
   else {
     req = https.request(`https://api.manifestcyber.com/v1/sbom/upload`, requestOptions, (res) => {
       const statusCode = res.statusCode;
