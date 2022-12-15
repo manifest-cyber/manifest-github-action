@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - "main"
-      - "origin/feat-name-version-update"
+      - "feat-name-version-update"
     
 jobs:
   build-sbom:
