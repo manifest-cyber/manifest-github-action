@@ -8,15 +8,16 @@ const { exec } = require("child_process");
 
 
 try {
-
   const apiKey = core.getInput("apiKey");
   const bomFilePath = core.getInput("bomFilePath");
   const assetRelationship = core.getInput("relationship");
   const bomSource = core.getInput("source");
+
+
   const bomContents = fs.readFileSync(bomFilePath);
   const base64BomContents = Buffer.from(bomContents).toString("base64");
 
-  exec("sh update-sbom.sh", (error, stdout, stderr) => {
+  exec("sh ./update-sbom.sh", (error, stdout, stderr) => {
     if (error) {
       core.setFailed(`error: ${error.message}`);
       return;

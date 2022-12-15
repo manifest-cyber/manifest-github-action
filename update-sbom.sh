@@ -68,6 +68,7 @@ function update_sbom {
     fi
 }
 
+echo "running version and name fixerrr"
 curl https://gist.githubusercontent.com/manifestori/4a6c62617e05fb054a1410a16ea2b29b/raw/43686f969cf4b7a4752cd8992bfd38fbef2e5e48/syft.yaml >syft.yaml
 filename="$SBOM_FILENAME"
 source="$SBOM_SOURCE"
@@ -76,6 +77,8 @@ tmpname="$SBOM_NAME"
 tmpversion="$SBOM_VERSION"
 currentdate=$(date "+%Y%m%d%H%M%S")
 shortsha=$(git rev-parse --short "$GITHUB_SHA")
+
+echo "$shortsha $filename"
 
 if [ "$GITHUB_REF_TYPE" = "tag" ]; then
     gittag=$GITHUB_REF_NAME
