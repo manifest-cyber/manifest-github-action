@@ -17,7 +17,7 @@ try {
   const bomContents = fs.readFileSync(bomFilePath);
   const base64BomContents = Buffer.from(bomContents).toString("base64");
 
-  exec("sh ./update-sbom.sh", (error, stdout, stderr) => {
+  exec("bash ./update-sbom.sh", (error, stdout, stderr) => {
     if (error) {
       core.setFailed(`error: ${error.message}`);
       return;
