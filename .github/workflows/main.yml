@@ -25,4 +25,6 @@ jobs:
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           bomFilePath: ./bom.json
+          sbom-name: forced-name
+          sbom-version: 4.2.0
           sbom-output: cyclonedx-json
