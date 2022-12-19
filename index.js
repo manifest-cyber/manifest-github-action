@@ -10,26 +10,23 @@ const execPromise = util.promisify(exec);
 
 async function execWrapper(cmd) {
   const { stdout, stderr, error } = await execPromise(cmd);
-  console.log("hello ***", stderr, error, stderr)
   if (stdout) {
-    console.log(`stderr: ${stdout}`);
+    console.log(`stdout: ${stdout}`);
   }
 
   if (stderr) {
-    console.log(`stderr: ${stderr}`);
     core.setFailed(`stderr: ${stderr}`);
     return;
   }
 
   if (error) {
-    console.log(`error: ${error}`);
     core.setFailed(`error: ${stderr}`);
     return;
   }
 }
 
 try {
-  const apiKey = core.getInput("apiKey");
+  const apiKey = '2IrZCN1V2XqR474RObSSueMNgR3uhI/746mHWhzHIiE=' // core.getInput("apiKey");
   const bomFilePath = core.getInput("bomFilePath");
   const output = core.getInput("sbom-output");
   const name = core.getInput("sbom-name");
@@ -38,11 +35,10 @@ try {
   const assetRelationship = core.getInput("relationship");
   const bomSource = core.getInput("source");
 
-
-  const bomContents = fs.readFileSync(bomFilePath);
-  const base64BomContents = Buffer.from(bomContents).toString("base64");
-
   execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ./update-sbom.sh`).then(() => {
+    const bomContents = fs.readFileSync(bomFilePath);
+    const base64BomContents = Buffer.from(bomContents).toString("base64");
+      
     const payload = {
       base64BomContents, // Incoming file Buffer
       relationship: assetRelationship && assetRelationship.length > 0 ? assetRelationship : 'first', // 'first' or 'third'-party
@@ -61,6 +57,7 @@ try {
       },
     };
 
+    console.log("")
     console.log("Sending request to Manifest Server");
     let req = null;
 
