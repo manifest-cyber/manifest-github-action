@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "main"
+      - "fix-local-sh"
       
 jobs:
   build-sbom:

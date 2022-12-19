@@ -34,7 +34,7 @@ try {
   const relationship = core.getInput("relationship");
   const source = core.getInput("source");
 
-  execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ./update-sbom.sh`).then(() => {
+  execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(() => {
     const bomContents = fs.readFileSync(bomFilePath);
     const base64BomContents = Buffer.from(bomContents).toString("base64");
 
