@@ -2,7 +2,6 @@ const fs = require("fs");
 const https = require("https");
 const http = require("http");
 const core = require("@actions/core");
-const path = require('path');
 const { exec } = require("child_process");
 const util = require("node:util");
 

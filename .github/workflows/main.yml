@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - "main"
-      - "feat-name-version-update"
-
+      
 jobs:
   build-sbom:
     runs-on: ubuntu-latest
