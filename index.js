@@ -32,8 +32,8 @@ try {
   const name = core.getInput("sbom-name");
   const version = core.getInput("sbom-version");
 
-  const assetRelationship = core.getInput("relationship");
-  const bomSource = core.getInput("source");
+  const relationship = core.getInput("relationship");
+  const source = core.getInput("source");
 
   execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ./update-sbom.sh`).then(() => {
     const bomContents = fs.readFileSync(bomFilePath);
@@ -41,9 +41,9 @@ try {
 
     const payload = {
       base64BomContents, // Incoming file Buffer
-      relationship: assetRelationship && assetRelationship.length > 0 ? assetRelationship : 'first', // 'first' or 'third'-party
+      relationship,// 'first' or 'third'-party
       filename: bomFilePath, // File name/path. Optional. Used for logging/debugging purposes.
-      source: bomSource && bomSource.length > 0 ? bomSource : 'github-action' // This is stored and visible to you in the Manifest app.
+      source, // This is stored and visible to you in the Manifest app.
     };
 
     const postData = JSON.stringify(payload);
