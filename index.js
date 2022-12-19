@@ -15,12 +15,12 @@ async function execWrapper(cmd) {
   }
 
   if (stderr) {
-    core.setFailed(`stderr: ${stderr}`);
+    console.log(`stderr: ${stdout}`);
     return;
   }
 
   if (error) {
-    core.setFailed(`error: ${stderr}`);
+    core.setFailed(`error: ${error}`);
     return;
   }
 }
@@ -38,7 +38,7 @@ try {
   execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ./update-sbom.sh`).then(() => {
     const bomContents = fs.readFileSync(bomFilePath);
     const base64BomContents = Buffer.from(bomContents).toString("base64");
-      
+
     const payload = {
       base64BomContents, // Incoming file Buffer
       relationship: assetRelationship && assetRelationship.length > 0 ? assetRelationship : 'first', // 'first' or 'third'-party
@@ -57,7 +57,6 @@ try {
       },
     };
 
-    console.log("")
     console.log("Sending request to Manifest Server");
     let req = null;
 

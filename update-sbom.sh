@@ -28,19 +28,27 @@ function update_cyclonedx_sbom {
 
     # Read the input file and parse the JSON
     input=$(cat "$filepath")
-    json=$(echo "$input" | jq -r '.metadata.component')
 
-    # Add the name to the "name" field
-    json=$(echo "$json" | jq ".name = \"$name\"")
+    local existingName=$(echo "$input" | jq -r '.metadata.component.name')
+    local existingVersion=$(echo "$input" | jq -r '.metadata.component.version')
 
-    # Add the version to the "version" field
-    json=$(echo "$json" | jq ".version = \"$version\"")
+    if [ -d "$existingName" ] && [ "$existingVersion" == "null" ]; then
+        json=$(echo "$input" | jq -r '.metadata.component')
 
-    # Update the input JSON with the updated version
-    input=$(echo "$input" | jq '.metadata.component = $json' --argjson json "$json")
+        # Add the name to the "name" field
+        json=$(echo "$json" | jq ".name = \"$name\"")
 
-    # Output the updated JSON to a file
-    echo "$input" >"$filepath"
+        # Add the version to the "version" field
+        json=$(echo "$json" | jq ".version = \"$version\"")
+
+        # Update the input JSON with the updated version
+        input=$(echo "$input" | jq '.metadata.component = $json' --argjson json "$json")
+
+        # Output the updated JSON to a file
+        echo "$input" >"$filepath"
+    else
+        echo "using existing SBOM values: name: $existingName version: $existingVersion"
+    fi
 }
 
 function update_sbom {
