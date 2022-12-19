@@ -23,7 +23,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: transmit
         with:
-          apiKey: 2IrZCN1V2XqR474RObSSueMNgR3uhI/746mHWhzHIiE= #${{ secrets.MANIFEST_API_KEY }}
+          apiKey: Xss5L2IN0yPpzCTVhQt3TwPLtwX4tki8dIuIHG0Zr5U= #${{ secrets.MANIFEST_API_KEY }}
           bomFilePath: ./bom.json
           # uncomment optional values:
           # sbom-name: forced-sbom-name
