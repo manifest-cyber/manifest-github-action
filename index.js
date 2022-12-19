@@ -27,6 +27,7 @@ async function execWrapper(cmd) {
 
 try {
   const apiKey = core.getInput("apiKey");
+  console.log("apikey", apiKey)
   const bomFilePath = core.getInput("bomFilePath");
   const output = core.getInput("sbom-output");
   const name = core.getInput("sbom-name");
