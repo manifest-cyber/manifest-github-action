@@ -15,7 +15,7 @@ async function execWrapper(cmd) {
   }
 
   if (stderr) {
-    console.log(`stderr: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
     return;
   }
 
