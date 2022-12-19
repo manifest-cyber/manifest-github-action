@@ -5,16 +5,24 @@ inputs:
     description: 'An API key generated in the Manifest app'
     required: true
   bomFilePath: 
-    description: 'The location of an sbom file'
+    description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON.'
     required: true
+  relationship: 
+    description: 'The relationship of the software to your organization (e.g. first- vs third-party). In most cases, this will be `first`.'
+    required: false
+    default: 'first'
+  source: 
+    description: The source of the uploaded SBOM.'
+    required: false
+    default: 'github-action'
   sbom-name: 
-    description: 'SBOM name, defaults to repository name'
+    description: 'The SBOM name, defaults to repository name'
     required: false
   sbom-version: 
-    description: 'SBOM version, defaults to environment variable tag, or commit hash'
+    description: 'The SBOM version, defaults to environment variable tag, or commit hash'
     required: false
   sbom-output: 
-    description: 'SBOM output format, supports: spdx-json | cyclonedx-json'
+    description: 'The SBOM output format, Supports: spdx-json | cyclonedx-json'
     default: cyclonedx-json
     required: false
 runs:

@@ -29,6 +29,25 @@ Accepted values: `first`, `third`. Default: `first`.
 The source of the uploaded SBOM. This will be visible to you in the Manifest app and is intended for tracking/analytics purposes. We generally recommend not to change this, but you do you :)
 Accepts any string. Default: `github-action`.
 
+### `sbom-name`
+**Optional**
+`{STRING}`
+
+The SBOM name. For usecases where you want to override the generated SBOM name. Default: repository name.
+
+### `sbom-version`
+**Optional**
+`{STRING}`
+
+The SBOM version. For usecases where you want to override the generated SBOM version. Default: v0.0.0-date-sha1.
+
+### `sbom-output`
+**Optional**
+`{STRING}`
+
+The SBOM output format, this is needed when passing spdx-json SBOM files.
+Default: cyclonedx-json.
+
 
 ## Example Usage
 The below example shows how you might a) generate an SBOM via CycloneDX, and b) transmit the SBOM directly to your Manifest account.
@@ -37,14 +56,14 @@ The below example shows how you might a) generate an SBOM via CycloneDX, and b) 
 - name: Build SBOM
   uses: CycloneDX/gh-node-module-generatebom@master
   with:
-    path: "./"
-    output: "./bom.json"
+    path: ./
+    output: ./bom.json
 - name: Transmit own SBOM
   uses: manifest-cyber/manifest-github-action@main
   id: transmit
   with:
     apiKey: ${{ secrets.MANIFEST_API_KEY }}
-    bomFilePath: "./bom.json"
+    bomFilePath: ./bom.json
     relationship: "first"
 ```
 
