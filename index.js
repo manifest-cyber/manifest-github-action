@@ -42,7 +42,7 @@ try {
   const bomContents = fs.readFileSync(bomFilePath);
   const base64BomContents = Buffer.from(bomContents).toString("base64");
 
-  execWrapper(`BOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ./update-sbom.sh`).then(() => {
+  execWrapper(`ls && BOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ./update-sbom.sh`).then(() => {
 
     const payload = {
       base64BomContents, // Incoming file Buffer
