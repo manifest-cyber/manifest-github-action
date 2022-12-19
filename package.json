@@ -1,6 +1,6 @@
 {
   "name": "@manifest/manifest-github-action",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "author": "Manifest Engineering <engineering@manifestcyber.com>",
