@@ -7,6 +7,16 @@ inputs:
   bomFilePath: 
     description: 'The location of an sbom file'
     required: true
+  sbom-name: 
+    description: 'SBOM name, defaults to repository name'
+    required: false
+  sbom-version: 
+    description: 'SBOM version, defaults to environment variable tag, or commit hash'
+    required: false
+  sbom-output: 
+    description: 'SBOM output format, supports: spdx-json | cyclonedx-json'
+    default: cyclonedx-json
+    required: false
 runs:
   using: 'node16'
   main: 'index.js'
