@@ -13,7 +13,7 @@ function update_spdx_sbom {
     fi
 
     if [ -z "$name" ]; then
-        name="$GITHUB_REPOSITORY"
+        name=${GITHUB_REPOSITORY#"$GITHUB_REPOSITORY_OWNER/"}
     else
         name="$name"
     fi
@@ -59,10 +59,8 @@ function update_cyclonedx_sbom {
     local existingName=$(echo "$input" | jq -r '.metadata.component.name')
     local existingVersion=$(echo "$input" | jq -r '.metadata.component.version')
 
-    echo "github env: $GITHUB_REPOSITORY $GITHUB_REF_NAME"
-
     if [ -z "$tmpname" ]; then
-        name="$GITHUB_REPOSITORY"
+        name=${GITHUB_REPOSITORY#"$GITHUB_REPOSITORY_OWNER/"}
     else
         name="$tmpname"
     fi
