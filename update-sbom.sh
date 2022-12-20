@@ -5,6 +5,13 @@ function update_spdx_sbom {
     local name=$2
     local version=$3
 
+    currentdate=$(date "+%Y%m%d%H%M%S")
+    shortsha=$(git rev-parse --short "$GITHUB_SHA")
+
+    if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+        gittag=$GITHUB_REF_NAME
+    fi
+
     if [ -z "$name" ]; then
         name="$GITHUB_REPOSITORY"
     else
@@ -39,11 +46,20 @@ function update_cyclonedx_sbom {
     local name=""
     local version=""
 
+    currentdate=$(date "+%Y%m%d%H%M%S")
+    shortsha=$(git rev-parse --short "$GITHUB_SHA")
+
+    if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+        gittag=$GITHUB_REF_NAME
+    fi
+
     # Read the input file and parse the JSON
     input=$(cat "$filepath")
 
     local existingName=$(echo "$input" | jq -r '.metadata.component.name')
     local existingVersion=$(echo "$input" | jq -r '.metadata.component.version')
+
+    echo "github env: $GITHUB_REPOSITORY $GITHUB_REF_NAME"
 
     if [ -z "$tmpname" ]; then
         name="$GITHUB_REPOSITORY"
@@ -57,9 +73,8 @@ function update_cyclonedx_sbom {
         version="$tmpversion"
     fi
 
-
     json=$(echo "$input" | jq -r '.metadata.component')
-    if [ ! -z "$tmpname" ] || [ -d "$existingName" ]; then
+    if [ ! -z "$tmpname" ] || [ -d "$existingName" ] || [ "$existingName" == "null" ]; then
 
         # Add the name to the "name" field
         json=$(echo "$json" | jq ".name = \"$name\"")
@@ -68,7 +83,7 @@ function update_cyclonedx_sbom {
     fi
 
     if [ ! -z "$tmpversion" ] || [ "$existingVersion" == "null" ]; then
-    
+
         # Add the version to the "version" field
         json=$(echo "$json" | jq ".version = \"$version\"")
     else
@@ -113,13 +128,5 @@ filename="$SBOM_FILENAME"
 output="$SBOM_OUTPUT"
 name="$SBOM_NAME"
 version="$SBOM_VERSION"
-currentdate=$(date "+%Y%m%d%H%M%S")
-shortsha=$(git rev-parse --short "$GITHUB_SHA")
-
-echo "$shortsha $filename"
-
-if [ "$GITHUB_REF_TYPE" = "tag" ]; then
-    gittag=$GITHUB_REF_NAME
-fi
 
 update_sbom "$filename" "$name" "$version" "$output"
