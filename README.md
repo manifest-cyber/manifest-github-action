@@ -3,6 +3,8 @@ Use this action to upload a generated SBOM to your Manifest account. Requires a 
 
 ## Inputs
 
+Note that any empty value provided to the input will result in a using the default values. Also note, that for some values, if they already exists in the generated SBOM, the values from the SBOM will be used.
+
 ### `apiKey`
 **REQUIRED**
 `{STRING}`
@@ -49,9 +51,12 @@ The SBOM output format, this is needed when passing spdx-json SBOM files.
 Default: cyclonedx-json.
 
 
-## Example Usage
-The below example shows how you might a) generate an SBOM via CycloneDX, and b) transmit the SBOM directly to your Manifest account.
+## Usage
+The below example shows how you might:
+a) generate an SBOM via CycloneDX, and 
+b) transmit the SBOM directly to your Manifest account.
 
+### Basic usage  
 ```
 - name: Build SBOM
   uses: CycloneDX/gh-node-module-generatebom@master
@@ -65,6 +70,32 @@ The below example shows how you might a) generate an SBOM via CycloneDX, and b) 
     apiKey: ${{ secrets.MANIFEST_API_KEY }}
     bomFilePath: ./bom.json
     relationship: "first"
+```
+
+In the above example, the values of `name` and `version` will be either default values, or the SBOM values if they exists.
+
+### Using custom values for name and version
+```
+- name: Build SBOM
+  uses: CycloneDX/gh-node-module-generatebom@master
+  with:
+    path: ./
+    output: ./bom.json
+- name: Set version
+  id: set-date
+  run: echo "date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+- name: Set short sha
+  id: set-sha
+  run: echo "sha=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_OUTPUT
+- name: Transmit own SBOM
+  uses: manifest-cyber/manifest-github-action@main
+  id: transmit
+  with:
+    apiKey: ${{ secrets.MANIFEST_API_KEY }}
+    bomFilePath: ./bom.json
+    relationship: "first"
+    sbom-name: ${{ env.GITHUB_JOB }}-${{ env.GITHUB_REPOSITORY_OWNER }}
+    sbom-version: v1.0.0-${{ steps.set-date.outputs.date }}-${{ steps.set-sha.outputs.sha }}
 ```
 
 
