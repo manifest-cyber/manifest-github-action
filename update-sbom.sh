@@ -24,9 +24,13 @@ function update_spdx_sbom {
         version="$version"
     fi
 
-    if (! jq '.relationships[] | select(.relationshipType == "DESCRIBES")' "$filepath") >/dev/null 2>&1; then
+    if (! jq '.relationships[] | select(.relationshipType == "DESCRIBES" && .relatedSpdxElement != "SPDXRef-DOCUMENT")' "$filepath") >/dev/null 2>&1; then
         jq --arg name "$name-$version" \
             '.name = $name' \
+            "$filepath" >"$filepath".tmp && mv "$filepath".tmp "$filepath"
+
+        jq --arg rel "SPDXRef-Package-$name-$version" \
+            '.documentDescribes = [$rel]' \
             "$filepath" >"$filepath".tmp && mv "$filepath".tmp "$filepath"
 
         jq --arg id "SPDXRef-DOCUMENT" --arg rel "SPDXRef-Package-$name-$version" \
