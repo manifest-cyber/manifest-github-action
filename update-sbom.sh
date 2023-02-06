@@ -29,6 +29,10 @@ function update_spdx_sbom {
             '.name = $name' \
             "$filepath" >"$filepath".tmp && mv "$filepath".tmp "$filepath"
 
+        jq --arg rel "SPDXRef-Package-$name-$version" \
+            '.documentDescribes = [$rel]' \
+            "$filepath" >"$filepath".tmp && mv "$filepath".tmp "$filepath"
+
         jq --arg id "SPDXRef-DOCUMENT" --arg rel "SPDXRef-Package-$name-$version" \
             '.relationships += [{"relationshipType": "DESCRIBES", "spdxElementId": $id, "relatedSpdxElement": $rel}]' \
             "$filepath" >"$filepath".tmp && mv "$filepath".tmp "$filepath"
