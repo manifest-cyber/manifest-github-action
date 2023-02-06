@@ -56,7 +56,7 @@ The below example shows how you might:
 a) generate an SBOM via CycloneDX, and 
 b) transmit the SBOM directly to your Manifest account.
 
-### Basic usage  
+### Basic usage
 ```
 - name: Build SBOM
   uses: CycloneDX/gh-node-module-generatebom@master
@@ -74,13 +74,40 @@ b) transmit the SBOM directly to your Manifest account.
 
 In the above example, the values of `name` and `version` will be either default values, or the SBOM values if they exists.
 
+### Basic usage with Syft
+
+```
+- name: Build SBOM
+  uses: anchore/sbom-action@v0
+    with:
+      path: .
+      output-file: ./bom.json
+      artifact-name: bom.json
+      format: spdx-json
+- name: Transmit own SBOM
+  uses: manifest-cyber/manifest-github-action@main
+  id: transmit
+  with:
+    apiKey: ${{ secrets.MANIFEST_API_KEY }}
+    bomFilePath: ./bom.json
+    relationship: "first"
+    sbom-output: spdx-json
+```
+
+Note that by using Syft, you can generate SBOMs for many ecosystems such as Golang, Node, PHP and Python. 
+You can also configure it to export in different formats, make sure you are exporting to either `spdx-json` or `cyclonedx-json` and that you pass the same format to `sbom-output` in the manifestcyber action step.
+
+See [sbom-action](https://github.com/anchore/sbom-action) repository for more information and additional configuration options.
+
 ### Using custom values for name and version
 ```
 - name: Build SBOM
-  uses: CycloneDX/gh-node-module-generatebom@master
-  with:
-    path: ./
-    output: ./bom.json
+  uses: anchore/sbom-action@v0
+    with:
+      path: .
+      output-file: ./bom.json
+      artifact-name: bom.json
+      format: cyclonedx-json
 - name: Set version
   id: set-date
   run: echo "date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
@@ -96,6 +123,7 @@ In the above example, the values of `name` and `version` will be either default 
     relationship: "first"
     sbom-name: ${{ env.GITHUB_JOB }}-${{ env.GITHUB_REPOSITORY_OWNER }}
     sbom-version: v1.0.0-${{ steps.set-date.outputs.date }}-${{ steps.set-sha.outputs.sha }}
+    sbom-output: cyclonedx-json
 ```
 
 
