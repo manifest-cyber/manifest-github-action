@@ -7,7 +7,9 @@
   "license": "UNLICENSED",
   "keywords": [],
   "dependencies": {
-    "@actions/core": "^1.9.1"
+    "@actions/core": "^1.9.1",
+    "@actions/tool-cache": "^2.0.1",
+    "@octokit/rest": "^19.0.13"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

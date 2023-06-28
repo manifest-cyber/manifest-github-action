@@ -1,9 +1,14 @@
-const fs = require("fs");
-const https = require("https");
-const http = require("http");
 const core = require("@actions/core");
+const cache = require("@actions/tool-cache");
 const { exec } = require("child_process");
 const util = require("node:util");
+
+const { Octokit } = require("@octokit/rest");
+const octokit = new Octokit();
+const owner = "manifest-cyber";
+const repo = "cli";
+const manifestBinary = "manifest";
+const binaryPath = `${__dirname}/${manifestBinary}`;
 
 const execPromise = util.promisify(exec);
 
@@ -24,79 +29,65 @@ async function execWrapper(cmd) {
   }
 }
 
+async function getReleaseVersion() {
+  // Pull the latest version of the CLI
+  let release = await octokit.repos.getLatestRelease({ owner, repo });
+
+  // TODO: Add better support for different platforms
+  let targetAsset = "manifest_linux_x86_64.tar.gz";
+  const localTest = process.env.TEST_LOCALLY;
+  if (localTest && localTest === 'enabled') {
+    targetAsset = "manifest_darwin_x86_64.tar.gz";
+  }
+
+  let manifestVersion = release.data?.tag_name;
+  let binaryUrl = undefined;
+
+  for (let i = 0; i < release.data?.assets?.length || 0; i++) {
+    if (release.data.assets[i].name === targetAsset) {
+      binaryUrl = release.data.assets[i].browser_download_url;
+      break;
+    }
+  }
+
+  if (!binaryUrl) {
+    throw new Error("Could not find the latest release of the CLI");
+  }
+
+  return { manifestVersion, binaryUrl };
+}
+
+async function getCLI(version, url) {
+  // TODO: Add support for caching the CLI
+  const tarPath = await cache.downloadTool(url);
+  const binaryExtractedPath = await cache.extractTar(tarPath, binaryPath, 'xz');
+  core.addPath(binaryExtractedPath)
+}
+
 try {
   const apiKey = core.getInput("apiKey");
+  core.setSecret(apiKey);
   const bomFilePath = core.getInput("bomFilePath");
   const output = core.getInput("sbom-output");
   const name = core.getInput("sbom-name");
   const version = core.getInput("sbom-version");
 
-  const relationship = core.getInput("relationship");
-  const source = core.getInput("source");
-
-  execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(() => {
-    const bomContents = fs.readFileSync(bomFilePath);
-    const base64BomContents = Buffer.from(bomContents).toString("base64");
-
-    const payload = {
-      base64BomContents, // Incoming file Buffer
-      relationship,// 'first' or 'third'-party
-      filename: bomFilePath, // File name/path. Optional. Used for logging/debugging purposes.
-      source, // This is stored and visible to you in the Manifest app.
-    };
-
-    const postData = JSON.stringify(payload);
-
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(postData),
-      },
-    };
-
-    console.log("Sending request to Manifest Server");
-    let req = null;
-
-    /**
-     * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. You can safely ignore the below `if` statement - the `else` clause will always fire during normal production use of this action. We include our development code for both transparency to you and our own convenience.
-     * If you have a better idea or suggested improvements, fork/PR or ping us at engineering@manifestcyber.com and we'd love to chat over a virtual cup of coffee :)
-     */
-    if (process.env.TEST_LOCALLY && process.env.TEST_LOCALLY === 'enabled') {
-      req = http.request(`http://local.manifestcyber.com:8081/v1/sbom/upload`, requestOptions, (res) => {
-        const statusCode = res.statusCode;
-        if (statusCode >= 200 && statusCode < 300) {
-          console.log("[DEV] Uploaded to Manifest Server");
-        } else {
-          core.setFailed(
-            "[DEV] Failed to upload:" + res.statusCode + " " + res.statusMessage
-          );
-        }
+  execWrapper(`export SBOM_FILENAME=${bomFilePath}; export SBOM_OUTPUT=${output}; export SBOM_NAME=${name}; export SBOM_VERSION=${version};`).then(async () => {
+    execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(async () => {
+      /**
+       * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. You can safely ignore the below `if` statement - the `else` clause will always fire during normal production use of this action. We include our development code for both transparency to you and our own convenience.
+       * If you have a better idea or suggested improvements, fork/PR or ping us at engineering@manifestcyber.com and we'd love to chat over a virtual cup of coffee :)
+       */
+      // TODO: Add support for running the CLI against a local deployment
+      console.log("SBOM Updated");
+      const { manifestVersion, binaryUrl } = await getReleaseVersion();
+      await getCLI(manifestVersion, binaryUrl);
+      core.info("Sending request to Manifest Server");
+      execWrapper(`MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`).then(r => {
+        core.info(`Manifest CLI response: ${r}`)
       });
-    }
-
-    else {
-      req = https.request(`https://api.manifestcyber.com/v1/sbom/upload`, requestOptions, (res) => {
-        const statusCode = res.statusCode;
-        if (statusCode >= 200 && statusCode < 300) {
-          console.log("Uploaded to Manifest Server");
-        } else {
-          core.setFailed(
-            "Failed to upload:" + res.statusCode + " " + res.statusMessage
-          );
-        }
-      });
-    }
-
-    req.on("error", (e) => {
-      console.error(`Problem with request: ${e.message}`);
-      core.setFailed(e.message);
-    });
-
-    req.write(postData);
-    req.end();
-  })
+    })
+  });
 }
 catch (error) {
   core.setFailed(error.message);
