@@ -15,7 +15,7 @@ inputs:
     required: false
     default: 'first'
   source: 
-    description: The source of the uploaded SBOM.'
+    description: 'The source of the uploaded SBOM.'
     required: false
     default: 'github-action'
   sbom-name: 
@@ -26,12 +26,12 @@ inputs:
     required: false
   sbom-output: 
     description: 'The SBOM output format, Supports: spdx-json | cyclonedx-json'
-    default: cyclonedx-json
     required: false
+    default: 'cyclonedx-json'
   sbom-generator:
     description: 'The SBOM generator, defaults to syft'
-    default: syft
     required: false
+    default: 'syft'
   sbom-generator-flags:
     description: 'ADVANCED USERS: Flags the Manifest CLI passes through to the generator'
     required: false
