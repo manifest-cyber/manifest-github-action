@@ -7,6 +7,9 @@ inputs:
   bomFilePath: 
     description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON.'
     required: true
+  sbom-publish:
+    description: 'Whether or not to publish the SBOM to the Manifest Cyber platform'
+    required: true
   relationship: 
     description: 'The relationship of the software to your organization (e.g. first- vs third-party). In most cases, this will be `first`.'
     required: false
@@ -25,6 +28,14 @@ inputs:
     description: 'The SBOM output format, Supports: spdx-json | cyclonedx-json'
     default: cyclonedx-json
     required: false
+  sbom-generator:
+    description: 'The SBOM generator, defaults to syft'
+    default: syft
+    required: false
+  sbom-generator-flags:
+    description: 'ADVANCED USERS: Flags the Manifest CLI passes through to the generator'
+    required: false
+
 runs:
   using: 'node16'
   main: 'index.js'
