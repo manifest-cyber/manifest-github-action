@@ -1,8 +1,8 @@
 name: Main
 on:
   push:
-    branches:
-      - "main"
+    tags:
+      - "v1.1.*"
       
 jobs:
   build-sbom:
