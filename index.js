@@ -112,6 +112,7 @@ async function generateSBOM(outputPath, outputFormat, sbomName, sbomVersion, gen
   }
   validateInput(outputFormat, generator)
   const sbomFlags = `--paths=${__dirname} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false -- ${generatorFlags}`;
+  core.info(`Generating SBOM using flags: ${sbomFlags}`);
 
   await execWrapper(`${manifestBinary} install --generator ${generator}`).then(async () => {
     core.info(`Installed ${generator}`);
