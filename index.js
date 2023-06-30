@@ -129,8 +129,8 @@ try {
   core.setSecret(apiKey);
   const bomFilePath = core.getInput("bomFilePath");
   const targetPath = core.getInput("path") || __dirname;
-  
-  const name = core.getInput("bomName");
+
+  const name = core.getInput("bomName") || `${process.env.GITHUB_REPOSITORY}@${process.env.GITHUB_REF_NAME}`;
   const version = core.getInput("bomVersion");
   const output = core.getInput("bomOutput");
   const generator = core.getInput("bomGenerator");

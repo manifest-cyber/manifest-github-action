@@ -20,7 +20,7 @@ inputs:
     required: false
     default: 'github-action'
   bomName:
-    description: 'The SBOM name, defaults to repository name'
+    description: 'The SBOM name, defaults to repository name with short ref name i.e. manifest-github-action@v1.1.0'
     required: false
   bomVersion:
     description: 'The SBOM version, defaults to environment variable tag, or commit hash'
