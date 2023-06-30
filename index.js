@@ -130,7 +130,7 @@ try {
   const bomFilePath = core.getInput("bomFilePath");
   const targetPath = core.getInput("path") || __dirname;
 
-  const name = core.getInput("bomName") || `${process.env.GITHUB_REPOSITORY}@${process.env.GITHUB_REF_NAME}`;
+  const name = core.getInput("bomName") || `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "")}`;
   const version = core.getInput("bomVersion");
   const output = core.getInput("bomOutput");
   const generator = core.getInput("bomGenerator");
