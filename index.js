@@ -1,5 +1,8 @@
+const fs = require("fs");
 const core = require("@actions/core");
 const cache = require("@actions/tool-cache");
+const artifact = require("@actions/artifact");
+const artifactClient = artifact.create();
 const { exec } = require("child_process");
 const util = require("node:util");
 
@@ -8,9 +11,14 @@ const octokit = new Octokit();
 const owner = "manifest-cyber";
 const repo = "cli";
 const manifestBinary = "manifest";
-const binaryPath = `${__dirname}/${manifestBinary}`;
+const tmpPath = "/tmp";
+const binaryPath = `${tmpPath}/${manifestBinary}`;
 
 const execPromise = util.promisify(exec);
+
+const validOutput = ["spdx-json", "cyclonedx-json"];
+const validGenerator = ["syft", "trivy", "cdxgen", "sigstore-bom", "spdx-sbom-generator", "docker-sbom"];
+const localTest = process.env.TEST_LOCALLY;
 
 async function execWrapper(cmd) {
   const { stdout, stderr, error } = await execPromise(cmd);
@@ -29,13 +37,12 @@ async function execWrapper(cmd) {
   }
 }
 
+// TODO: Add better support for different platforms
 async function getReleaseVersion() {
   // Pull the latest version of the CLI
   let release = await octokit.repos.getLatestRelease({ owner, repo });
 
-  // TODO: Add better support for different platforms
   let targetAsset = "manifest_linux_x86_64.tar.gz";
-  const localTest = process.env.TEST_LOCALLY;
   if (localTest && localTest === 'enabled') {
     targetAsset = "manifest_darwin_x86_64.tar.gz";
   }
@@ -57,13 +64,68 @@ async function getReleaseVersion() {
   return { manifestVersion, binaryUrl };
 }
 
+// TODO: Add support for caching the CLI
 async function getCLI(version, url) {
-  // TODO: Add support for caching the CLI
-  const tarPath = await cache.downloadTool(url);
-  const binaryExtractedPath = await cache.extractTar(tarPath, binaryPath, 'xz');
+  const dest = `${tmpPath}${url.substring(url.lastIndexOf("/"))}`
+  if (fileExists(`${binaryPath}/${manifestBinary}`)) {
+    core.info("Manifest CLI already exists, skipping download");
+    core.addPath(binaryPath);
+    return;
+  }
+
+  if (!fileExists(dest)) {
+    core.info(`Downloading the latest version of the CLI from ${url}`);
+    await cache.downloadTool(url, dest);
+  } else {
+    core.info('CLI tarball already exists, skipping download');
+  }
+
+  const binaryExtractedPath = await cache.extractTar(dest, binaryPath, 'xz');
   core.addPath(binaryExtractedPath)
 }
 
+function shouldPublish(apiKey, publish) {
+  if (!apiKey) {
+    return false;
+  }
+
+  return publish !== "false";
+}
+
+function fileExists(filePath) {
+  return fs.existsSync(filePath);
+}
+
+function validateInput(output, generator) {
+  if (output && !validOutput.includes(output)) {
+    throw new Error(`Invalid output format: ${output}, expected to be one of ${validOutput}`);
+  }
+  if (generator && !validGenerator.includes(generator)) {
+    throw new Error(`Invalid generator: ${generator}, expected to be one of ${validGenerator}`);
+  }
+}
+
+// TODO: Add support for caching the generators that the CLI uses
+async function generateSBOM(outputPath, outputFormat, sbomName, sbomVersion, generator, generatorFlags) {
+  if (!fileExists(outputPath)) {
+    validateInput(outputFormat, generator)
+    const sbomFlags = `--paths=${__dirname} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false -- ${generatorFlags}`;
+
+    await execWrapper(`${manifestBinary} install --generator ${generator}`).then(async () => {
+      core.info(`Installed ${generator}`);
+      await execWrapper(`${manifestBinary} sbom ${sbomFlags}`).then(() => { core.info(`SBOM Generated: ${outputPath}`) });
+    });
+  }
+
+  if (localTest && localTest === 'enabled') {
+    return
+  }
+  const upload = await artifactClient.uploadArtifact("sbom", [outputPath], outputPath.substring(0, outputPath.lastIndexOf("/")));
+  core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
+}
+
+
+// TODO: Add support for running the CLI against a local deployment
 try {
   const apiKey = core.getInput("apiKey");
   core.setSecret(apiKey);
@@ -71,22 +133,29 @@ try {
   const output = core.getInput("sbom-output");
   const name = core.getInput("sbom-name");
   const version = core.getInput("sbom-version");
-  const publish = core.getInput("sbom-publish");
   const generator = core.getInput("sbom-generator");
+  const publish = core.getInput("sbom-publish");
   const generatorFlags = core.getInput("sbom-generator-flags");
 
-  execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(async () => {
-    /**
-     * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. You can safely ignore the below `if` statement - the `else` clause will always fire during normal production use of this action. We include our development code for both transparency to you and our own convenience.
-     * If you have a better idea or suggested improvements, fork/PR or ping us at engineering@manifestcyber.com and we'd love to chat over a virtual cup of coffee :)
-     */
-    // TODO: Add support for running the CLI against a local deployment
-    console.log("SBOM Updated");
-    const { manifestVersion, binaryUrl } = await getReleaseVersion();
-    await getCLI(manifestVersion, binaryUrl);
-    core.info("Sending request to Manifest Server");
-    execWrapper(`MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`).then(r => {
-      core.info(`Manifest CLI response: ${r}`)
+  /**
+   * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. We include our development code for both transparency to you and our own convenience.
+   * If you have a better idea or suggested improvements, fork/PR or ping us at engineering@manifestcyber.com and we'd love to chat over a virtual cup of coffee :)
+   */
+  getReleaseVersion().then(async ({ manifestVersion, binaryUrl }) => {
+    getCLI(manifestVersion, binaryUrl).then(async () => {
+      generateSBOM(bomFilePath, output, name, version, generator, generatorFlags).then(async () => {
+        execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(async () => {
+          console.log("SBOM Updated");
+          if (shouldPublish(apiKey, publish)) {
+            core.info("Sending request to Manifest Server");
+            execWrapper(`MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`).then(r => {
+              core.info(`Manifest CLI response: ${r}`)
+            });
+          } else {
+            core.info('No API Key provided, skipping publish')
+          }
+        });
+      });
     });
   });
 }
