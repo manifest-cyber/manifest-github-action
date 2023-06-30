@@ -107,21 +107,17 @@ function validateInput(output, generator) {
 
 // TODO: Add support for caching the generators that the CLI uses
 async function generateSBOM(outputPath, outputFormat, sbomName, sbomVersion, generator, generatorFlags) {
-  if (!fileExists(outputPath)) {
-    validateInput(outputFormat, generator)
-    const sbomFlags = `--paths=${__dirname} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false -- ${generatorFlags}`;
-
-    await execWrapper(`${manifestBinary} install --generator ${generator}`).then(async () => {
-      core.info(`Installed ${generator}`);
-      await execWrapper(`${manifestBinary} sbom ${sbomFlags}`).then(() => { core.info(`SBOM Generated: ${outputPath}`) });
-    });
+  if (fileExists(outputPath)) {
+    return;
   }
+  validateInput(outputFormat, generator)
+  const sbomFlags = `--paths=${__dirname} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false -- ${generatorFlags}`;
 
-  if (localTest && localTest === 'enabled') {
-    return
-  }
-  const upload = await artifactClient.uploadArtifact("sbom", [outputPath], outputPath.substring(0, outputPath.lastIndexOf("/")));
-  core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
+  await execWrapper(`${manifestBinary} install --generator ${generator}`).then(async () => {
+    core.info(`Installed ${generator}`);
+    await execWrapper(`${manifestBinary} sbom ${sbomFlags}`).then(() => { core.info(`SBOM Generated: ${outputPath}`) });
+  });
+  return outputPath;
 }
 
 
@@ -143,8 +139,12 @@ try {
    */
   getReleaseVersion().then(async ({ manifestVersion, binaryUrl }) => {
     getCLI(manifestVersion, binaryUrl).then(async () => {
-      generateSBOM(bomFilePath, output, name, version, generator, generatorFlags).then(async () => {
+      generateSBOM(bomFilePath, output, name, version, generator, generatorFlags).then(async (outputPath) => {
         execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(async () => {
+          if (outputPath) {
+            const upload = await artifactClient.uploadArtifact("sbom", [outputPath], outputPath.substring(0, outputPath.lastIndexOf("/")));
+            core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
+          }
           console.log("SBOM Updated");
           if (shouldPublish(apiKey, publish)) {
             core.info("Sending request to Manifest Server");
