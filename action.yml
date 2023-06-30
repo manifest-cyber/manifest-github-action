@@ -1,31 +1,34 @@
 name: 'Manifest Cyber SBOM Transmitter'
 description: 'Transmit an SBOM to your Manifest Cyber account'
 inputs:
-  apiKey: 
+  apiKey:
     description: 'An API key generated in the Manifest app'
     required: true
   bomFilePath:
     description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON. If a file is not provided, an SBOM will be generated using the parameters below.'
     required: false
     default: './bom.json'
+  path:
+    description: 'Path of the target repository to generate an SBOM for'
+    required: false
   sbom-publish:
-    description: 'Whether or not to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.'
+    description: 'Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.'
     required: false
   relationship:
     description: 'The relationship of the software to your organization (e.g. first- vs third-party). In most cases, this will be `first`.'
     required: false
     default: 'first'
-  source: 
+  source:
     description: 'The source of the uploaded SBOM.'
     required: false
     default: 'github-action'
-  sbom-name: 
+  sbom-name:
     description: 'The SBOM name, defaults to repository name'
     required: false
-  sbom-version: 
+  sbom-version:
     description: 'The SBOM version, defaults to environment variable tag, or commit hash'
     required: false
-  sbom-output: 
+  sbom-output:
     description: 'The SBOM output format, Supports: spdx-json | cyclonedx-json'
     required: false
     default: 'cyclonedx-json'
@@ -33,6 +36,10 @@ inputs:
     description: 'The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom'
     required: false
     default: 'syft'
+  sbom-artifact:
+    description: 'Boolean to store the generated SBOM as an artifact. An artifact will not be created when set to anything other than `true`.'
+    required: false
+    default: 'true'
   sbom-generator-flags:
     description: 'ADVANCED USERS: Flags the Manifest CLI passes through to the generator'
     required: false
