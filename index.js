@@ -123,18 +123,20 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
 
 
 // TODO: Add support for running the CLI against a local deployment
+// TODO: Add support for CLI `source` flag and `relationship`
 try {
   const apiKey = core.getInput("apiKey");
   core.setSecret(apiKey);
   const bomFilePath = core.getInput("bomFilePath");
-  const output = core.getInput("sbom-output");
-  const name = core.getInput("sbom-name");
-  const version = core.getInput("sbom-version");
-  const generator = core.getInput("sbom-generator");
-  const publish = core.getInput("sbom-publish");
-  const generatorFlags = core.getInput("sbom-generator-flags");
-  const targetPath = core.getInput("sbom-target-path") || __dirname;
-  const artifact = core.getInput("sbom-artifact");
+  const targetPath = core.getInput("path") || __dirname;
+  
+  const name = core.getInput("bomName");
+  const version = core.getInput("bomVersion");
+  const output = core.getInput("bomOutput");
+  const generator = core.getInput("bomGenerator");
+  const artifact = core.getInput("bomArtifact");
+  const publish = core.getInput("bomPublish");
+  const generatorFlags = core.getInput("bomGeneratorFlags");
 
   /**
    * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. We include our development code for both transparency to you and our own convenience.
@@ -144,11 +146,11 @@ try {
     getCLI(manifestVersion, binaryUrl).then(async () => {
       generateSBOM(targetPath, bomFilePath, output, name, version, generator, generatorFlags).then(async (outputPath) => {
         execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(async () => {
+          console.log("SBOM Updated");
           if (outputPath && artifact === "true") {
             const upload = await artifactClient.uploadArtifact("sbom", [outputPath], outputPath.substring(0, outputPath.lastIndexOf("/")));
             core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
           }
-          console.log("SBOM Updated");
           if (shouldPublish(apiKey, publish)) {
             core.info("Sending request to Manifest Server");
             execWrapper(`MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`).then(r => {
