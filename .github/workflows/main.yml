@@ -1,8 +1,8 @@
 name: Main
 on:
   push:
-    tags:
-      - "v1.1.*"
+    branches:
+      - "MFST-607"
       
 jobs:
   build-sbom:
@@ -13,11 +13,6 @@ jobs:
         with:
           node-version: 16
       - run: npm install
-      - name: Build SBOM
-        uses: CycloneDX/gh-node-module-generatebom@master
-        with:
-          path: ./
-          output: ./bom.json
       - name: Transmit own SBOM
         uses: ./ # Uses an action in the root directory
         id: transmit
