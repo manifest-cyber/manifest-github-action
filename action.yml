@@ -4,13 +4,14 @@ inputs:
   apiKey: 
     description: 'An API key generated in the Manifest app'
     required: true
-  bomFilePath: 
-    description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON.'
-    required: true
+  bomFilePath:
+    description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON. If a file is not provided, an SBOM will be generated using the parameters below.'
+    required: false
+    default: './bom.json'
   sbom-publish:
-    description: 'Whether or not to publish the SBOM to the Manifest Cyber platform'
-    required: true
-  relationship: 
+    description: 'Whether or not to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.'
+    required: false
+  relationship:
     description: 'The relationship of the software to your organization (e.g. first- vs third-party). In most cases, this will be `first`.'
     required: false
     default: 'first'
@@ -29,7 +30,7 @@ inputs:
     required: false
     default: 'cyclonedx-json'
   sbom-generator:
-    description: 'The SBOM generator, defaults to syft'
+    description: 'The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom'
     required: false
     default: 'syft'
   sbom-generator-flags:
