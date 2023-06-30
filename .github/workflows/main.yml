@@ -2,7 +2,9 @@ name: Main
 on:
   push:
     branches:
-      - "MFST-607"
+      - "main"
+    tags:
+      - '*'
       
 jobs:
   build-sbom:
