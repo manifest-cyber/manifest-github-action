@@ -5,6 +5,7 @@ const artifact = require("@actions/artifact");
 const artifactClient = artifact.create();
 const { exec } = require("child_process");
 const util = require("node:util");
+const semver = require("semver");
 
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit();
@@ -19,6 +20,7 @@ const execPromise = util.promisify(exec);
 const validOutput = ["spdx-json", "cyclonedx-json"];
 const validGenerator = ["syft", "trivy", "cdxgen", "sigstore-bom", "spdx-sbom-generator", "docker-sbom"];
 const localTest = process.env.TEST_LOCALLY;
+const sourceFlagMinVer = "0.8.1"
 
 async function execWrapper(cmd) {
   const { stdout, stderr, error } = await execPromise(cmd);
@@ -111,7 +113,10 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
     return;
   }
   validateInput(outputFormat, generator)
-  const sbomFlags = `--paths=${targetPath} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false -- ${generatorFlags}`;
+  let sbomFlags = `--paths=${targetPath} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false`;
+  if (generatorFlags) {
+    sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
+  }
   core.info(`Generating SBOM using flags: ${sbomFlags}`);
 
   await execWrapper(`${manifestBinary} install --generator ${generator}`).then(async () => {
@@ -123,14 +128,14 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
 
 
 // TODO: Add support for running the CLI against a local deployment
-// TODO: Add support for CLI `source` flag and `relationship`
+// TODO: Add support for CLI `relationship` flag
 try {
   const apiKey = core.getInput("apiKey");
   core.setSecret(apiKey);
-  const bomFilePath = core.getInput("bomFilePath");
   const targetPath = core.getInput("path") || __dirname;
-
   const name = core.getInput("bomName") || `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "")}`;
+
+  const bomFilePath = core.getInput("bomFilePath") || `${name}.json`;
   const version = core.getInput("bomVersion");
   const output = core.getInput("bomOutput");
   const generator = core.getInput("bomGenerator");
@@ -152,8 +157,15 @@ try {
             core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
           }
           if (shouldPublish(apiKey, publish)) {
+            let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`;
+            const mVer = semver.coerce(manifestVersion)
+            if (mVer && semver.gte(mVer, sourceFlagMinVer)) {
+              publishCommand = `${publishCommand} --source=github-action`;
+            } else {
+              core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--source\` flag. Please upgrade to v0.8.1 or later.`);
+            }
             core.info("Sending request to Manifest Server");
-            execWrapper(`MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`).then(r => {
+            execWrapper(publishCommand).then(r => {
               core.info(`Manifest CLI response: ${r}`)
             });
           } else {
