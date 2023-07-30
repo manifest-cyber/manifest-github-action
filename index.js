@@ -113,7 +113,7 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
     return;
   }
   validateInput(outputFormat, generator)
-  let sbomFlags = `--paths=${targetPath} --file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false`;
+  let sbomFlags = `--file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false ${targetPath}`;
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
@@ -128,7 +128,6 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
 
 
 // TODO: Add support for running the CLI against a local deployment
-// TODO: Add support for CLI `relationship` flag
 try {
   const apiKey = core.getInput("apiKey");
   core.setSecret(apiKey);
@@ -142,6 +141,8 @@ try {
   const artifact = core.getInput("bomArtifact");
   const publish = core.getInput("bomPublish");
   const generatorFlags = core.getInput("bomGeneratorFlags");
+  const source = core.getInput("source");
+  const relationship = core.getInput("relationship");
 
   /**
    * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. We include our development code for both transparency to you and our own convenience.
@@ -157,7 +158,7 @@ try {
             core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
           }
           if (shouldPublish(apiKey, publish)) {
-            let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath}`;
+            let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath} --source=${source} --relationship=${relationship}`;
             const mVer = semver.coerce(manifestVersion)
             if (mVer && semver.gte(mVer, sourceFlagMinVer)) {
               publishCommand = `${publishCommand} --source=github-action`;
@@ -165,9 +166,7 @@ try {
               core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--source\` flag. Please upgrade to v0.8.1 or later.`);
             }
             core.info("Sending request to Manifest Server");
-            execWrapper(publishCommand).then(r => {
-              core.info(`Manifest CLI response: ${r}`)
-            });
+            await execWrapper(publishCommand);
           } else {
             core.info('No API Key provided, skipping publish')
           }

@@ -12,7 +12,7 @@ inputs:
     description: 'Path of the target repository to generate an SBOM for'
     required: false
   relationship:
-    description: 'DEPRECATED: contact Manifest if your use case requires this functionality.'
+    description: 'Sets the relationship of the SBOM. Must be either "first" or "third" with most cases being "first" for SBOMs generated using the GitHub action.'
     required: false
     default: 'first'
   source:
