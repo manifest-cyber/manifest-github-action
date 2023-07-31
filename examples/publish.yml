@@ -1,0 +1,45 @@
+name: Generate SBOM
+
+env:
+  # Specify the path to the SBOM to publish
+  ## For example:
+  ## bomFilePath: ./bom.json
+  bomFilePath: <PATH_TO_YOUR_SBOM>
+  #
+  # The following variables are optional and can be set here or in the "with" section of the "Generate SBOM" step
+  # If set here, then the "with" section of the "Generate SBOM" step should be uncommented
+  #
+  # Uncomment the following line to specify a third-party SBOM
+  #relationship: third
+  #
+  # Uncomment the following line to skip saving the SBOM as an artifact for this job
+  #bomArtifact: false
+  #
+  # Labels are synonymous with "tags" and can be used to easily identify assets and components within Manifest.
+  ## For example:
+  ## bomLabels: "label1,label2,label3"
+  ## Uncomment the following line to add labels to the SBOM
+  #bomLabels: <LABELS>
+  #
+  # DANGER! SECRETS SHOULD NEVER BE CHECKED IN TO SOURCE CODE
+  # Uncomment the following line and modify the "with" section to publish using an API key specified below
+  #apiKey: <YOUR_API_KEY_HERE>
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  generate-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate SBOM
+        uses: manifest-cyber/manifest-github-action@main
+        id: generate
+        with:
+          apiKey: ${{ secrets.MANIFEST_API_KEY }}
+          bomFilePath: ${{ env.bomFilePath }}
+          #relationship: ${{ env.relationship }}
+          #bomArtifact: ${{ env.bomArtifact }}
+          #bomLabels: ${{ env.bomLabels }}
