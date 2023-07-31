@@ -21,6 +21,7 @@ const validOutput = ["spdx-json", "cyclonedx-json"];
 const validGenerator = ["syft", "trivy", "cdxgen", "sigstore-bom", "spdx-sbom-generator", "docker-sbom"];
 const localTest = process.env.TEST_LOCALLY;
 const sourceFlagMinVer = "0.8.1"
+const labelsFlagMinVer = "0.9.1"
 
 async function execWrapper(cmd) {
   const { stdout, stderr, error } = await execPromise(cmd);
@@ -143,6 +144,7 @@ try {
   const generatorFlags = core.getInput("bomGeneratorFlags");
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
+  const labels= core.getInput('bomLabels') || '';
 
   /**
    * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. We include our development code for both transparency to you and our own convenience.
@@ -164,6 +166,11 @@ try {
               publishCommand = `${publishCommand} --source=github-action`;
             } else {
               core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--source\` flag. Please upgrade to v0.8.1 or later.`);
+            }
+            if (mVer && labels && semver.gte(mVer, labelsFlagMinVer)) {
+              publishCommand = `${publishCommand} --labels=${labels.split(' ').join('-')}`;
+            } else if (labels) {
+              core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--labels\` flag. Please upgrade to v0.9.1 or later.`);
             }
             core.info("Sending request to Manifest Server");
             await execWrapper(publishCommand);
