@@ -40,6 +40,9 @@ inputs:
   bomPublish:
     description: 'Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.'
     required: false
+  bomLabels:
+    description: 'A comma separated list of labels to apply to the SBOM. Note that spaces will be replaced with a dash (-) character.'
+    required: false
   bomGeneratorFlags:
     description: 'ADVANCED USERS: Flags the Manifest CLI passes through to the generator'
     required: false
