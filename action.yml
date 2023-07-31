@@ -3,7 +3,7 @@ description: 'Transmit an SBOM to your Manifest Cyber account'
 inputs:
   apiKey:
     description: 'An API key generated in the Manifest app'
-    required: true
+    required: false
   bomFilePath:
     description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON. If a file is not provided, an SBOM will be generated using the parameters below.'
     required: false
