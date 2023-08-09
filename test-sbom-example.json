@@ -31,7 +31,7 @@
     ],
     "component": {
       "type": "application",
-      "name": "example-sbom-github-action-local-tes",
+      "name": "manifest-github-action@local-dev",
       "version": "0.1.0",
       "bom-ref": "example-sbom-github-action-local-tes@0.1.0",
       "purl": "pkg:npm/example-sbom-github-action-local-test@0.1.0",

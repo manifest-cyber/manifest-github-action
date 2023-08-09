@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - "main"
+    tags:
+      - '*'
       
 jobs:
   build-sbom:
@@ -13,11 +15,6 @@ jobs:
         with:
           node-version: 16
       - run: npm install
-      - name: Build SBOM
-        uses: CycloneDX/gh-node-module-generatebom@master
-        with:
-          path: ./
-          output: ./bom.json
       - name: Transmit own SBOM
         uses: ./ # Uses an action in the root directory
         id: transmit
@@ -25,6 +22,11 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           bomFilePath: ./bom.json
           # uncomment optional values:
-          # sbom-name: forced-sbom-name
-          # sbom-version: 4.2.0
-          # sbom-output: cyclonedx-json
+          # path: ./
+          # bomName: forced-sbom-name
+          # bomVersion: 4.2.0
+          # bomOutput: cyclonedx-json
+          # bomGenerator: syft
+          # bomArtifact: true
+          # bomPublish: true
+          # bomGeneratorFlags: <FOR_ADVANCED_USERS>

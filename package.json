@@ -1,18 +1,30 @@
 {
   "name": "@manifest/manifest-github-action",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "author": "Manifest Cyber",
   "license": "UNLICENSED",
   "keywords": [],
   "dependencies": {
-    "@actions/core": "^1.9.1"
+    "@actions/artifact": "^1.1.1",
+    "@actions/core": "^1.9.1",
+    "@actions/tool-cache": "^2.0.1",
+    "@octokit/rest": "^19.0.13",
+    "@types/semver": "^7.5.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
   },
   "scripts": {
-    "dev": "cross-env TEST_LOCALLY=enabled INPUT_relationship=\"first\" INPUT_apiKey=\"<MANIFEST-API-KEY>\" INPUT_bomFilePath=\"./test-sbom-example.json\" node index.js"
+    "dev": "npm run _ -- cross-env INPUT_BOMFILEPATH=\"./test-sbom-example.json\" INPUT_BOMOUTPUT=\"cyclonedx-json\" node index.js",
+    "dev:syft-spdx": "npm run _syft -- cross-env INPUT_BOMNAME=\"manifest-github-action@dev-syft-spdx\" INPUT_BOMOUTPUT=\"spdx-json\" node index.js",
+    "dev:syft-cdx" : "npm run _syft -- cross-env INPUT_BOMNAME=\"manifest-github-action@dev-syft-cdx\" INPUT_BOMOUTPUT=\"cyclonedx-json\" node index.js",
+    "dev:trivy-spdx": "npm run _trivy -- cross-env INPUT_BOMNAME=\"manifest-github-action@dev-trivy-spdx\" INPUT_BOMOUTPUT=\"spdx-json\" node index.js",
+    "dev:trivy-cdx" : "npm run _trivy -- cross-env INPUT_BOMNAME=\"manifest-github-action@dev-trivy-cdx\" INPUT_BOMOUTPUT=\"cyclonedx-json\" node index.js",
+
+    "_": "TEST_LOCALLY=enabled RUNNER_TEMP=/tmp/runner_cache INPUT_APIKEY=\"<MANIFEST_API_KEY>\" INPUT_SOURCE=\"github-action\" INPUT_BOMNAME=\"manifest-github-action@dev\" INPUT_BOMVERSION=\"1.1.0\"",
+    "_syft": "npm run _ -- INPUT_BOMFILEPATH=\"\" INPUT_BOMGENERATOR=\"syft\"",
+    "_trivy": "npm run _ -- INPUT_BOMFILEPATH=\"\" INPUT_BOMGENERATOR=\"trivy\""
   }
 }
