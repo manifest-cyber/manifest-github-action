@@ -1,0 +1,58 @@
+name: Generate SBOM
+
+env:
+  # Anything uncommented below will also need to be uncommented in the "with" section of the "Generate SBOM" step
+  # Choose an SBOM generator from the list below (uncomment one and only one):
+  #sbomGenerator: syft
+  #sbomGenerator: trivy
+  #sbomGenerator: cdxgen
+  #sbomGenerator: sigstore-bom
+  #sbomGenerator: spdx-sbom-generator
+  #sbomGenerator: docker-sbom
+  #
+  # Choose an SBOM output format from the list below (uncomment one and only one):
+  ## NOTE: spdx-json cannot be used with cdxgen or docker-sbom
+  #sbomOutput: spdx-json
+  ## NOTE: cyclonedx-json cannot be used with sigstore-bom, spdx-sbom-generator, or docker-sbom
+  #sbomOutput: cyclonedx-json
+  #
+  # Optional flags for the generator (uncomment and modify as needed):
+  #
+  # Relationship is used to describe the relationship of the SBOM to the repository.
+  ## For example: if the SBOM is generated from a repository written by your organization, the relationship is "first".
+  ## If the SBOM is generated from a repository written by a third party, the relationship is "third".
+  ## The line below only needs to be uncommented if the relationship is "third".
+  #relationship: third
+  #
+  # Uncomment the following line to skip saving the SBOM as an artifact for this job
+  #sbomArtifact: false
+  #
+  # The SBOM name will default to the repository name, which can be overwritten below
+  #sbomName: forced-sbom-name
+  #
+  # Generally the repository path can be found automatically, but if not, it can be set below
+  #path: ./
+  #
+  # The SBOM version defaults to environment variable tag or commit hash which can be overwritten below
+  #sbomVersion: forced-sbom-version
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  generate-sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Generate SBOM
+        uses: manifest-cyber/manifest-github-action@main
+        id: generate
+        with:
+          #sbomGenerator: ${{ env.sbomGenerator }}
+          #sbomOutput: ${{ env.sbomOutput }}
+          #sbomGeneratorFlags: ${{ env.sbomGeneratorFlags }}
+          #relationship: ${{ env.relationship }}
+          #sbomName: ${{ env.sbomName }}
+          #path: ${{ env.path }}
+          #sbomVersion: ${{ env.sbomVersion }}

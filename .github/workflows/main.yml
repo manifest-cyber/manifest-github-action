@@ -23,10 +23,10 @@ jobs:
           bomFilePath: ./bom.json
           # uncomment optional values:
           # path: ./
-          # bomName: forced-sbom-name
-          # bomVersion: 4.2.0
-          # bomOutput: cyclonedx-json
-          # bomGenerator: syft
-          # bomArtifact: true
-          # bomPublish: true
-          # bomGeneratorFlags: <FOR_ADVANCED_USERS>
+          # sbomName: forced-sbom-name
+          # sbomVersion: 4.2.0
+          # sbomOutput: cyclonedx-json
+          # sbomGenerator: syft
+          # sbomArtifact: true
+          # sbomPublish: true
+          # sbomGeneratorFlags: <FOR_ADVANCED_USERS>
