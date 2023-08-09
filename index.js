@@ -133,18 +133,18 @@ try {
   const apiKey = core.getInput("apiKey");
   core.setSecret(apiKey);
   const targetPath = core.getInput("path") || __dirname;
-  const name = core.getInput("bomName") || `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "")}`;
+  const name = core.getInput("sbomName") || `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "")}`;
 
   const bomFilePath = core.getInput("bomFilePath") || `${name}.json`;
   const version = core.getInput("bomVersion");
-  const output = core.getInput("bomOutput");
-  const generator = core.getInput("bomGenerator");
-  const artifact = core.getInput("bomArtifact");
-  const publish = core.getInput("bomPublish");
-  const generatorFlags = core.getInput("bomGeneratorFlags");
+  const output = core.getInput("sbomOutput");
+  const generator = core.getInput("sbomGenerator");
+  const artifact = core.getInput("sbomArtifact");
+  const publish = core.getInput("sbomPublish");
+  const generatorFlags = core.getInput("sbomGeneratorFlags");
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
-  const labels= core.getInput('bomLabels') || '';
+  const labels= core.getInput('sbomLabels') || '';
 
   /**
    * At Manifest, we like to eat our own dogfood - you'll see some development code we use when testing our API and this action locally. We include our development code for both transparency to you and our own convenience.

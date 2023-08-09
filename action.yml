@@ -19,31 +19,31 @@ inputs:
     description: 'The source of the uploaded SBOM.'
     required: false
     default: 'github-action'
-  bomName:
+  sbomName:
     description: 'The SBOM name, defaults to repository name'
     required: false
-  bomVersion:
+  sbomVersion:
     description: 'The SBOM version, defaults to environment variable tag, or commit hash'
     required: false
-  bomOutput:
+  sbomOutput:
     description: 'The SBOM output format, Supports: spdx-json | cyclonedx-json'
     required: false
     default: 'cyclonedx-json'
-  bomGenerator:
+  sbomGenerator:
     description: 'The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom'
     required: false
     default: 'syft'
-  bomArtifact:
+  sbomArtifact:
     description: 'Boolean to store the generated SBOM as an artifact. An artifact will not be created when set to anything other than `true`.'
     required: false
     default: 'true'
-  bomPublish:
+  sbomPublish:
     description: 'Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.'
     required: false
-  bomLabels:
+  sbomLabels:
     description: 'A comma separated list of labels to apply to the SBOM. Note that spaces will be replaced with a dash (-) character.'
     required: false
-  bomGeneratorFlags:
+  sbomGeneratorFlags:
     description: 'ADVANCED USERS: Flags the Manifest CLI passes through to the generator'
     required: false
 

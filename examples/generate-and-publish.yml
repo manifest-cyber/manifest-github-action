@@ -3,18 +3,18 @@ name: Generate SBOM
 env:
   # Anything uncommented below will also need to be uncommented in the "with" section of the "Generate SBOM" step
   # Choose an SBOM generator from the list below (uncomment one and only one):
-  #bomGenerator: syft
-  #bomGenerator: trivy
-  #bomGenerator: cdxgen
-  #bomGenerator: sigstore-bom
-  #bomGenerator: spdx-sbom-generator
-  #bomGenerator: docker-sbom
+  #sbomGenerator: syft
+  #sbomGenerator: trivy
+  #sbomGenerator: cdxgen
+  #sbomGenerator: sigstore-bom
+  #sbomGenerator: spdx-sbom-generator
+  #sbomGenerator: docker-sbom
   #
   # Choose an SBOM output format from the list below (uncomment one and only one):
   ## NOTE: spdx-json cannot be used with cdxgen or docker-sbom
-  #bomOutput: spdx-json
+  #sbomOutput: spdx-json
   ## NOTE: cyclonedx-json cannot be used with sigstore-bom, spdx-sbom-generator, or docker-sbom
-  #bomOutput: cyclonedx-json
+  #sbomOutput: cyclonedx-json
   #
   # Optional flags for the generator (uncomment and modify as needed):
   #
@@ -25,21 +25,21 @@ env:
   #relationship: third
   #
   # The SBOM name will default to the repository name, which can be overwritten below
-  #bomName: forced-sbom-name
+  #sbomName: forced-sbom-name
   #
   # Generally the repository path can be found automatically, but if not, it can be set below
   #path: ./
   #
   # Uncomment the following line to skip saving the SBOM as an artifact for this job
-  #bomArtifact: false
+  #sbomArtifact: false
   #
   # The SBOM version defaults to environment variable tag or commit hash which can be overwritten below
-  #bomVersion: forced-sbom-version
+  #sbomVersion: forced-sbom-version
   # Labels are synonymous with "tags" and can be used to easily identify assets and components within Manifest.
   ## For example:
-  ## bomLabels: "label1,label2,label3"
+  ## sbomLabels: "label1,label2,label3"
   ## Uncomment the following line to add labels to the SBOM
-  #bomLabels: <LABELS>
+  #sbomLabels: <LABELS>
   #
   # DANGER! SECRETS SHOULD NEVER BE CHECKED IN TO SOURCE CODE
   ## Uncomment the following line and modify the "with" section to publish using an API key specified below
@@ -59,11 +59,11 @@ jobs:
         id: generate
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          bomGenerator: ${{ env.bomGenerator }}
-          bomOutput: ${{ env.bomOutput }}
+          bomGenerator: ${{ env.sbomGenerator }}
+          bomOutput: ${{ env.sbomOutput }}
           #relationship: ${{ env.relationship }}
-          #bomName: ${{ env.bomName }}
+          #sbomName: ${{ env.sbomName }}
           #path: ${{ env.path }}
-          #bomArtifact: ${{ env.bomArtifact }}
-          #bomVersion: ${{ env.bomVersion }}
-          #bomLabels: ${{ env.bomLabels }}
+          #sbomArtifact: ${{ env.sbomArtifact }}
+          #sbomVersion: ${{ env.sbomVersion }}
+          #sbomLabels: ${{ env.sbomLabels }}

@@ -13,13 +13,13 @@ env:
   #relationship: third
   #
   # Uncomment the following line to skip saving the SBOM as an artifact for this job
-  #bomArtifact: false
+  #sbomArtifact: false
   #
   # Labels are synonymous with "tags" and can be used to easily identify assets and components within Manifest.
   ## For example:
-  ## bomLabels: "label1,label2,label3"
+  ## sbomLabels: "label1,label2,label3"
   ## Uncomment the following line to add labels to the SBOM
-  #bomLabels: <LABELS>
+  #sbomLabels: <LABELS>
   #
   # DANGER! SECRETS SHOULD NEVER BE CHECKED IN TO SOURCE CODE
   # Uncomment the following line and modify the "with" section to publish using an API key specified below
@@ -41,5 +41,5 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           bomFilePath: ${{ env.bomFilePath }}
           #relationship: ${{ env.relationship }}
-          #bomArtifact: ${{ env.bomArtifact }}
-          #bomLabels: ${{ env.bomLabels }}
+          #sbomArtifact: ${{ env.sbomArtifact }}
+          #sbomLabels: ${{ env.sbomLabels }}
