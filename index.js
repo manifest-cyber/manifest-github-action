@@ -132,12 +132,12 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
 try {
   const apiKey = core.getInput("apiKey");
   core.setSecret(apiKey);
-  const targetPath = core.getInput("path") || __dirname;
-  const name = core.getInput("sbomName") || `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, "")}`;
+  const targetPath = core.getInput("path") || `${process.cwd()}`;
+  const name = core.getInput('sbomName') || core.getInput('sbom-name') || `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, '')}`;
 
   const bomFilePath = core.getInput("bomFilePath") || `${name}.json`;
-  const version = core.getInput("bomVersion");
-  const output = core.getInput("sbomOutput");
+  const version = core.getInput("sbomVersion") || core.getInput("bomVersion") || core.getInput("sbom-version");
+  const output = core.getInput("sbomOutput") || core.getInput("sbom-output");
   const generator = core.getInput("sbomGenerator");
   const artifact = core.getInput("sbomArtifact");
   const publish = core.getInput("sbomPublish");
