@@ -114,7 +114,10 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
     return;
   }
   validateInput(outputFormat, generator)
-  let sbomFlags = `--file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --version=${sbomVersion} --generator=${generator} --publish=false ${targetPath}`;
+  let sbomFlags = `--file=${outputPath.replace(/\.json$/, '')} --output=${outputFormat} --name=${sbomName} --generator=${generator} --publish=false ${targetPath}`;
+  if (sbomVersion?.length > 0) {
+    sbomFlags = `${sbomFlags} --version=${sbomVersion}`;
+  }
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
@@ -153,7 +156,12 @@ try {
   getReleaseVersion().then(async ({ manifestVersion, binaryUrl }) => {
     getCLI(manifestVersion, binaryUrl).then(async () => {
       generateSBOM(targetPath, bomFilePath, output, name, version, generator, generatorFlags).then(async (outputPath) => {
-        execWrapper(`SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name} SBOM_VERSION=${version} bash ${__dirname}/update-sbom.sh`).then(async () => {
+        let updateCommand = `SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name}`
+        if (version?.length > 0) {
+          updateCommand = `${updateCommand} SBOM_VERSION=${version}`;
+        }
+        updateCommand = `${updateCommand} bash ${__dirname}/update-sbom.sh`;
+        execWrapper(updateCommand).then(async () => {
           console.log("SBOM Updated");
           if (outputPath && artifact === "true") {
             const upload = await artifactClient.uploadArtifact("sbom", [outputPath], outputPath.substring(0, outputPath.lastIndexOf("/")));
