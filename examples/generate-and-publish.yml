@@ -59,11 +59,11 @@ jobs:
         id: generate
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          bomGenerator: ${{ env.sbomGenerator }}
-          bomOutput: ${{ env.sbomOutput }}
+          sbomGenerator: ${{ env.sbomGenerator }}
+          sbomOutput: ${{ env.sbomOutput }}
           #relationship: ${{ env.relationship }}
-          #bomName: ${{ env.sbomName }}
+          #sbomName: ${{ env.sbomName }}
           #path: ${{ env.path }}
-          #bomArtifact: ${{ env.sbomArtifact }}
-          #bomVersion: ${{ env.sbomVersion }}
-          #bomLabels: ${{ env.sbomLabels }}
+          #sbomArtifact: ${{ env.sbomArtifact }}
+          #sbomVersion: ${{ env.sbomVersion }}
+          #sbomLabels: ${{ env.sbomLabels }}

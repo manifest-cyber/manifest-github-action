@@ -39,7 +39,7 @@ jobs:
         id: generate
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          bomFilePath: ${{ env.bomFilePath }}
+          sbomFilePath: ${{ env.sbomFilePath }}
           #relationship: ${{ env.relationship }}
-          #bomArtifact: ${{ env.sbomArtifact }}
-          #bomLabels: ${{ env.sbomLabels }}
+          #sbomArtifact: ${{ env.sbomArtifact }}
+          #sbomLabels: ${{ env.sbomLabels }}

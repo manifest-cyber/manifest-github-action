@@ -1,32 +1,33 @@
-name: Main
+name: Generate and Publish SBOM
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
       - "main"
-    tags:
-      - '*'
-      
+
+
+permissions:
+  id-token: write
+  contents: read # This is required for actions/checkout@v2
+
 jobs:
-  build-sbom:
+  generate-and-publish-sbom:
     runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm install
-      - name: Transmit own SBOM
-        uses: ./ # Uses an action in the root directory
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      # Generate and transmita copy of our generated SBOM to Manifest
+      - name: Generate and Transmit SBOM to Manifest
+        uses: manifest-cyber/manifest-github-action@main
         id: transmit
         with:
+          # Generate an API key at https://app.manifestcyber.com/organization
+          # Store the key as a secret in Github, and reference it below
+          # Do not share this key - this allows the holder to upload SBOM's to Manifest on your behalf
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          bomFilePath: ./bom.json
-          # uncomment optional values:
-          # path: ./
-          # sbomName: forced-sbom-name
-          # sbomVersion: 4.2.0
-          # sbomOutput: cyclonedx-json
-          # sbomGenerator: syft
-          # sbomArtifact: true
-          # sbomPublish: true
-          # sbomGeneratorFlags: <FOR_ADVANCED_USERS>
