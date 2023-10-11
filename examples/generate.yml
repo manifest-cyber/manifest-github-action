@@ -49,10 +49,10 @@ jobs:
         uses: manifest-cyber/manifest-github-action@main
         id: generate
         with:
-          #sbomGenerator: ${{ env.sbomGenerator }}
-          #sbomOutput: ${{ env.sbomOutput }}
-          #sbomGeneratorFlags: ${{ env.sbomGeneratorFlags }}
+          #bomGenerator: ${{ env.sbomGenerator }}
+          #bomOutput: ${{ env.sbomOutput }}
+          #bomGeneratorFlags: ${{ env.sbomGeneratorFlags }}
           #relationship: ${{ env.relationship }}
-          #sbomName: ${{ env.sbomName }}
+          #bomName: ${{ env.sbomName }}
           #path: ${{ env.path }}
-          #sbomVersion: ${{ env.sbomVersion }}
+          #bomVersion: ${{ env.sbomVersion }}
