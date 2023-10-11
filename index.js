@@ -47,10 +47,12 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   // Pull the latest version of the CLI
   let release = await octokit.repos.getLatestRelease({ owner, repo });
 
-  core.info(`latest release data: ${JSON.stringify(release)}`)
+  core.info(`latest release data: ${JSON.stringify(release.data)}`)
 
-  let version = release.data?.tag_name;
+  let manifestVersion = release.data?.tag_name;
   let binaryUrl = undefined;
+
+  core.info(`version is ${manifestVersion}`)
 
   for (let i = 0; i < release.data?.assets?.length || 0; i++) {
     if (release.data.assets[i].name === targetAsset) {
@@ -63,7 +65,9 @@ async function getReleaseVersion(owner, repo, targetAsset) {
     throw new Error("Could not find the latest release of the CLI");
   }
 
-  return { version, binaryUrl };
+  core.info(`returning version ${manifestVersion}`)
+
+  return { manifestVersion, binaryUrl };
 }
 
 // TODO: Add support for caching the CLI
