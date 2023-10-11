@@ -47,7 +47,7 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   // Pull the latest version of the CLI
   let release = await octokit.repos.getLatestRelease({ owner, repo });
 
-  let version = release.data?.tag_name;
+  let manifestVersion = release.data?.tag_name;
   let binaryUrl = undefined;
 
   for (let i = 0; i < release.data?.assets?.length || 0; i++) {
@@ -61,7 +61,7 @@ async function getReleaseVersion(owner, repo, targetAsset) {
     throw new Error("Could not find the latest release of the CLI");
   }
 
-  return { version, binaryUrl };
+  return { manifestVersion, binaryUrl };
 }
 
 // TODO: Add support for caching the CLI
@@ -217,7 +217,7 @@ try {
               core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--source\` flag. Please upgrade to v0.8.1 or later.`);
             }
             if (mVer && labels && semver.gte(mVer, labelsFlagMinVer)) {
-              publishCommand = `${publishCommand} --labels=${labels.split(" ").join("-")}`;
+              publishCommand = `${publishCommand} --label=${labels.split(" ").join("-")}`;
             } else if (labels) {
               core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--labels\` flag. Please upgrade to v0.9.1 or later.`);
             }
