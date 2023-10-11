@@ -138,33 +138,29 @@ async function generateSBOM(targetPath, outputPath, outputFormat, sbomName, sbom
   return outputPath;
 }
 
-
-// TODO: Add support for running the CLI against a local deployment
 try {
-  const apiKey = core.getInput("apiKey");
+  const apiKey = core.getInput('apiKey') || core.getInput('apikey');
   core.setSecret(apiKey);
   const targetPath = core.getInput("path") || `${process.cwd()}`;
   const name =
-    core.getInput("sbomName") ||
-    core.getInput("sbom-name") ||
-    `${process.env.GITHUB_REPOSITORY?.replace(
-      `${process.env.GITHUB_REPOSITORY_OWNER}/`,
-      "",
-    )}`;
+    core.getInput('sbomName') ||
+    core.getInput('bbomName') ||
+    core.getInput('sbom-name') ||
+    `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, '')}`
 
-  const bomFilePath = core.getInput("bomFilePath") || `${name}.json`;
+  const bomFilePath = core.getInput("sbomFilePath") || core.getInput("bomFilePath") || `${name}.json`;
   let version =
     core.getInput("sbomVersion") ||
     core.getInput("bomVersion") ||
     core.getInput("sbom-version");
-  const output = core.getInput("sbomOutput") || core.getInput("sbom-output");
-  const generator = core.getInput("sbomGenerator");
-  const artifact = core.getInput("sbomArtifact");
+  const output = core.getInput('sbomOutput') || core.getInput('sbom-output') || core.getInput('bomOutput')
+  const generator = core.getInput('sbomGenerator') || core.getInput('bomGenerator');
+  const artifact = core.getInput('sbomArtifact') || core.getInput('bomArtifact')
   const publish = core.getInput("sbomPublish");
   const generatorFlags = core.getInput("sbomGeneratorFlags");
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
-  const labels = core.getInput("sbomLabels") || "";
+  const labels = core.getInput('sbomLabels') || core.getInput('bomLabels') || ''
 
   const targetManifestAsset =
     localTest && localTest === "enabled" ? "manifest_darwin_x86_64.tar.gz" : "manifest_linux_x86_64.tar.gz";
@@ -234,4 +230,3 @@ try {
 catch (error) {
   core.setFailed(error.message);
 }
-
