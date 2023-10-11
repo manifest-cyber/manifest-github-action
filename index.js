@@ -144,7 +144,7 @@ try {
   const targetPath = core.getInput("path") || `${process.cwd()}`;
   const name =
     core.getInput('sbomName') ||
-    core.getInput('bbomName') ||
+    core.getInput('bomName') ||
     core.getInput('sbom-name') ||
     `${process.env.GITHUB_REPOSITORY?.replace(`${process.env.GITHUB_REPOSITORY_OWNER}/`, '')}`
 
@@ -156,8 +156,8 @@ try {
   const output = core.getInput('sbomOutput') || core.getInput('sbom-output') || core.getInput('bomOutput')
   const generator = core.getInput('sbomGenerator') || core.getInput('bomGenerator');
   const artifact = core.getInput('sbomArtifact') || core.getInput('bomArtifact')
-  const publish = core.getInput("sbomPublish");
-  const generatorFlags = core.getInput("sbomGeneratorFlags");
+  const publish = core.getInput('sbomPublish') || core.getInput('bomPublish');
+  const generatorFlags = core.getInput('sbomGeneratorFlags') || core.getInput('bomGeneratorFlags')
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
   const labels = core.getInput('sbomLabels') || core.getInput('bomLabels') || ''
