@@ -41,5 +41,5 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           bomFilePath: ${{ env.bomFilePath }}
           #relationship: ${{ env.relationship }}
-          #sbomArtifact: ${{ env.sbomArtifact }}
-          #sbomLabels: ${{ env.sbomLabels }}
+          #bomArtifact: ${{ env.sbomArtifact }}
+          #bomLabels: ${{ env.sbomLabels }}
