@@ -47,12 +47,8 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   // Pull the latest version of the CLI
   let release = await octokit.repos.getLatestRelease({ owner, repo });
 
-  core.info(`latest release data: ${JSON.stringify(release.data)}`)
-
   let manifestVersion = release.data?.tag_name;
   let binaryUrl = undefined;
-
-  core.info(`version is ${manifestVersion}`)
 
   for (let i = 0; i < release.data?.assets?.length || 0; i++) {
     if (release.data.assets[i].name === targetAsset) {
@@ -64,8 +60,6 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   if (!binaryUrl) {
     throw new Error("Could not find the latest release of the CLI");
   }
-
-  core.info(`returning version ${manifestVersion}`)
 
   return { manifestVersion, binaryUrl };
 }
@@ -223,7 +217,7 @@ try {
               core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--source\` flag. Please upgrade to v0.8.1 or later.`);
             }
             if (mVer && labels && semver.gte(mVer, labelsFlagMinVer)) {
-              publishCommand = `${publishCommand} --labels=${labels.split(" ").join("-")}`;
+              publishCommand = `${publishCommand} --label=${labels.split(" ").join("-")}`;
             } else if (labels) {
               core.warning(`The version of the CLI (${manifestVersion}) does not support the \`--labels\` flag. Please upgrade to v0.9.1 or later.`);
             }
