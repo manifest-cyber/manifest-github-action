@@ -47,6 +47,8 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   // Pull the latest version of the CLI
   let release = await octokit.repos.getLatestRelease({ owner, repo });
 
+  core.info(`latest release data: ${release}`)
+
   let version = release.data?.tag_name;
   let binaryUrl = undefined;
 
