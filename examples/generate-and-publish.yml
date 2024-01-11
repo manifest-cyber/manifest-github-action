@@ -40,14 +40,10 @@ env:
   ## sbomLabels: "label1,label2,label3"
   ## Uncomment the following line to add labels to the SBOM
   #sbomLabels: <LABELS>
-  #
-  # DANGER! SECRETS SHOULD NEVER BE CHECKED IN TO SOURCE CODE
-  ## Uncomment the following line and modify the "with" section to publish using an API key specified below
-  #apiKey: <YOUR_API_KEY_HERE>
 
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [$default-branch]
 
 jobs:
   generate-sbom:

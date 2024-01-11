@@ -9,10 +9,9 @@ on:
     branches:
       - "main"
 
-
 permissions:
   id-token: write
-  contents: read # This is required for actions/checkout@v2
+  contents: read
 
 jobs:
   generate-and-publish-sbom:
@@ -22,12 +21,7 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      # Generate and transmita copy of our generated SBOM to Manifest
-      - name: Generate and Transmit SBOM to Manifest
+      - name: generate SBOM
         uses: manifest-cyber/manifest-github-action@main
-        id: transmit
         with:
-          # Generate an API key at https://app.manifestcyber.com/organization
-          # Store the key as a secret in Github, and reference it below
-          # Do not share this key - this allows the holder to upload SBOM's to Manifest on your behalf
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
