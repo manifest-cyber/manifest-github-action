@@ -162,7 +162,7 @@ In this example, all depedencies would be installed by the action, generating an
 ```
 - uses: actions/checkout@v4
 - name: generate SBOM
-uses: manifest-cyber/manifest-github-action@main
+    uses: manifest-cyber/manifest-github-action@main
 with:
   apiKey: ${{ secrets.MANIFEST_API_KEY }}
   sbomGenerator: syft
