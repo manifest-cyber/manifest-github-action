@@ -163,7 +163,7 @@ try {
   const labels = core.getInput('sbomLabels') || core.getInput('bomLabels') || ''
 
   const targetManifestAsset =
-    localTest && localTest === "enabled" ? "manifest_darwin_x86_64.tar.gz" : "manifest_linux_x86_64.tar.gz";
+    localTest && localTest === "enabled" ? "manifest-cli_darwin_x86_64.tar.gz" : "manifest-cli_linux_x86_64.tar.gz";
   // TODO: Once jq finally publishes the new 1.7 version, update to use that instead of the hardcoded 1.6 version
   const targetJqAsset =
     localTest && localTest === "enabled"
