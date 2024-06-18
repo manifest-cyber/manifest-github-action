@@ -178,7 +178,7 @@ try {
   const name =
     core.getInput("sbomName") ||
     core.getInput("bomName") ||
-    core.getInput("sbom-name") ||
+    core.getInput("name") ||
     `${process.env.GITHUB_REPOSITORY?.replace(
       `${process.env.GITHUB_REPOSITORY_OWNER}/`,
       ""
@@ -191,7 +191,7 @@ try {
   let version =
     core.getInput("sbomVersion") ||
     core.getInput("bomVersion") ||
-    core.getInput("sbom-version");
+    core.getInput("version");
   const output =
     core.getInput("sbomOutput") ||
     core.getInput("sbom-output") ||
@@ -207,9 +207,15 @@ try {
 
   const artifact =
     core.getInput("sbomArtifact") || core.getInput("bomArtifact");
-  const publish = core.getInput("sbomPublish") || core.getInput("bomPublish");
+  const publish =
+    core.getInput("sbomPublish") ||
+    core.getInput("bomPublish") ||
+    core.getInput("publish");
   const generatorFlags =
-    core.getInput("sbomGeneratorFlags") || core.getInput("bomGeneratorFlags");
+    core.getInput("sbomGeneratorFlags") ||
+    core.getInput("bomGeneratorFlags") ||
+    core.getInput("generator-flags");
+
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
   const active = core.getInput("active") || "true";

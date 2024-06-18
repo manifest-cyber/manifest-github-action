@@ -32,3 +32,4 @@ jobs:
           generator-preset: "recommended"
           product-id: "667176540113d97529033301"
           product-labels: "github-action, production,automation,"
+          active: "true"

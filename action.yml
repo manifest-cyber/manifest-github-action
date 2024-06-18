@@ -82,6 +82,10 @@ inputs:
     description: "A comma separated list of labels to apply to the SBOM product, will only be applied if the product-id is set."
     required: false
 
+  active:
+    description: "set the SBOM as active. Expects either `true` or `false`."
+    required: true
+
 runs:
   using: "node20"
   main: "index.js"
