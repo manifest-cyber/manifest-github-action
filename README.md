@@ -103,6 +103,32 @@ Default: `cyclonedx-json`.
 The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom.
 Default: `syft`.
 
+### `generator-version`
+
+**Optional**
+`{STRING}`
+
+Specific SBOM generator version to install.
+
+Default: `latest`.
+
+### `generator-preset`
+
+**Optional**
+`{STRING}`
+
+Manifest-provided presets for generators to choose from.
+
+Options: `none|recommended`
+Default: `recommended`.
+
+### `generator-config`
+
+**Optional**
+`{STRING}`
+
+Path to custom config file for generator, if supported.
+
 ### `sbomPublish`
 
 **Optional**
@@ -112,10 +138,32 @@ Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true
 
 ### `sbomLabels`
 
+[DEPREACTED: use `asset-labels` instead]
 **Optional**
 `{STRING}`
 
-A comma separated list of labels to apply to the SBOM. Note that spaces will be replaced with a dash (-) character.
+A comma separated list of labels to apply to the SBOM.
+
+### `asset-labels`
+
+**Optional**
+`{STRING}`
+
+A comma separated list of labels to apply to the SBOM product.
+
+### `product-id`
+
+**Optional**
+`{STRING}`
+
+The product ID to associate the SBOM with.
+
+### `product-labels`
+
+**Optional**
+`{STRING}`
+
+A comma separated list of labels to apply to the SBOM product, will only be applied if the product-id is set.
 
 ### `sbomGeneratorFlags`
 
@@ -123,6 +171,14 @@ A comma separated list of labels to apply to the SBOM. Note that spaces will be 
 `{STRING}`
 
 ADVANCED USERS: Flags the Manifest CLI passes through to the generator.
+
+### `active`
+
+**Optional**
+`{STRING}`
+
+set the SBOM as active. Expects either `true` or `false`.
+Default: `true`.
 
 ---
 
@@ -163,10 +219,10 @@ In this example, all depedencies would be installed by the action, generating an
 - uses: actions/checkout@v4
 - name: generate SBOM
     uses: manifest-cyber/manifest-github-action@main
-with:
-  apiKey: ${{ secrets.MANIFEST_API_KEY }}
-  sbomGenerator: syft
-  sbomGeneratorFlags: --exclude=**/testdata/**
+  with:
+    apiKey: ${{ secrets.MANIFEST_API_KEY }}
+    sbomGenerator: syft
+    sbomGeneratorFlags: --exclude=**/testdata/**
 ```
 
 ### Using custom values for name and version
