@@ -149,6 +149,11 @@ async function generateSBOM(
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
+
+  if (generator === "syft" && generatorVersion === "") {
+    generatorVersion = "v1.6.0";
+  }
+
   const installCommand =
     `${manifestBinary} install --generator=${generator} --version=${generatorVersion}`.replace(
       "\n",
@@ -199,7 +204,8 @@ try {
   const generator =
     core.getInput("sbomGenerator") ||
     core.getInput("bomGenerator") ||
-    core.getInput("generator");
+    core.getInput("generator") ||
+    "syft";
 
   const generatorVersion = core.getInput("generator-version") || "";
   const generatorConfig = core.getInput("generator-config") || "";
