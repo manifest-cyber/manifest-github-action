@@ -27,3 +27,8 @@ jobs:
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
+          generator: "syft"
+          generator-version: "v1.6.0"
+          generator-preset: "recommended"
+          product-id: "667176540113d97529033301"
+          product-labels: "github-action, production,automation,"
