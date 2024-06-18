@@ -1,52 +1,87 @@
-name: 'Manifest Cyber SBOM Transmitter'
-description: 'Transmit an SBOM to your Manifest Cyber account'
+name: "Manifest Cyber SBOM Transmitter"
+description: "Transmit an SBOM to your Manifest Cyber account"
 inputs:
   apiKey:
-    description: 'An API key generated in the Manifest app'
+    description: "An API key generated in the Manifest app"
     required: false
   bomFilePath:
-    description: 'The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON. If a file is not provided, an SBOM will be generated using the parameters below.'
+    description: "The location of a generated SBOM file. Accepts CycloneDX or SPDX SBOMs in JSON. If a file is not provided, an SBOM will be generated using the parameters below."
     required: false
-    default: './bom.json'
+    default: "./bom.json"
   path:
-    description: 'Path of the target repository to generate an SBOM for'
+    description: "Path of the target repository to generate an SBOM for"
     required: false
   relationship:
     description: 'Sets the relationship of the SBOM. Must be either "first" or "third" with most cases being "first" for SBOMs generated using the GitHub action.'
     required: false
-    default: 'first'
+    default: "first"
   source:
-    description: 'The source of the uploaded SBOM.'
+    description: "The source of the uploaded SBOM."
     required: false
-    default: 'github-action'
+    default: "github-action"
   sbomName:
-    description: 'The SBOM name, defaults to repository name'
+    description: "The SBOM name, defaults to repository name"
     required: false
   sbomVersion:
-    description: 'The SBOM version, defaults to environment variable tag, or commit hash'
+    description: "The SBOM version, defaults to environment variable tag, or commit hash"
     required: false
   sbomOutput:
-    description: 'The SBOM output format, Supports: spdx-json | cyclonedx-json'
+    description: "The SBOM output format, Supports: spdx-json | cyclonedx-json"
     required: false
-    default: 'cyclonedx-json'
+    default: "cyclonedx-json"
   sbomGenerator:
-    description: 'The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom'
+    description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom"
     required: false
-    default: 'syft'
+    default: "syft"
   sbomArtifact:
-    description: 'Boolean to store the generated SBOM as an artifact. An artifact will not be created when set to anything other than `true`.'
+    description: "Boolean to store the generated SBOM as an artifact. An artifact will not be created when set to anything other than `true`."
     required: false
-    default: 'true'
+    default: "true"
   sbomPublish:
-    description: 'Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.'
+    description: "Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present."
     required: false
   sbomLabels:
-    description: 'A comma separated list of labels to apply to the SBOM. Note that spaces will be replaced with a dash (-) character.'
+    description: "A comma separated list of labels to apply to the SBOM."
     required: false
   sbomGeneratorFlags:
-    description: 'ADVANCED USERS: Flags the Manifest CLI passes through to the generator'
+    description: "ADVANCED USERS: Flags the Manifest CLI passes through to the generator"
+    required: false
+
+  ### v1.2.0 ###
+  generator:
+    description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom"
+    required: false
+    default: "syft"
+
+  generator-version:
+    description: "The version of the SBOM generator to use. Defaults to the latest version."
+    required: false
+
+  generator-flags:
+    description: "flags passes through to the generator"
+    required: false
+
+  generator-preset:
+    description: 'The preset to use for the generator. Defaults to the "recommended" preset.'
+    required: false
+    default: "recommended"
+
+  generator-config:
+    description: "The path to the generator configuration file."
+    required: false
+
+  asset-labels:
+    description: "A comma separated list of labels to apply to the SBOM asset."
+    required: false
+
+  product-id:
+    description: "The product ID to associate the SBOM with."
+    required: false
+
+  product-labels:
+    description: "A comma separated list of labels to apply to the SBOM product, will only be applied if the product-id is set."
     required: false
 
 runs:
-  using: 'node16'
-  main: 'index.js'
+  using: "node16"
+  main: "index.js"

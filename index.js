@@ -29,8 +29,6 @@ const validGenerator = [
   "docker-sbom",
 ];
 const localTest = process.env.TEST_LOCALLY;
-const sourceFlagMinVer = "0.8.1";
-const labelsFlagMinVer = "0.9.1";
 
 async function execWrapper(cmd) {
   const { stdout, stderr, error } = await execPromise(cmd);
@@ -133,6 +131,8 @@ async function generateSBOM(
   sbomVersion,
   generator,
   generatorVersion,
+  generatorPreset,
+  generatorConfig,
   generatorFlags
 ) {
   if (fileExists(outputPath)) {
@@ -154,10 +154,11 @@ async function generateSBOM(
       "\n",
       ""
     );
-  const generateCommand = `${manifestBinary} sbom ${sbomFlags}`.replace(
-    "\n",
-    ""
-  );
+  const generateCommand =
+    `${manifestBinary} sbom --generator-preset=${generatorPreset} --generator-config=${generatorConfig} ${sbomFlags}`.replace(
+      "\n",
+      ""
+    );
 
   core.info(`Installing generator using flags: ${sbomFlags}`);
   await execWrapper(installCommand).then(async () => {
@@ -202,7 +203,7 @@ try {
 
   const generatorVersion = core.getInput("generator-version") || "";
   const generatorConfig = core.getInput("generator-config") || "";
-  const generatorPresets = core.getInput("generator-presets") || "";
+  const generatorPreset = core.getInput("generator-preset") || "";
 
   const artifact =
     core.getInput("sbomArtifact") || core.getInput("bomArtifact");
@@ -258,6 +259,9 @@ try {
           name,
           version,
           generator,
+          generatorVersion,
+          generatorPreset,
+          generatorConfig,
           generatorFlags
         ).then(async (outputPath) => {
           let updateCommand = `SBOM_FILENAME=${bomFilePath} SBOM_OUTPUT=${output} SBOM_NAME=${name}`;
@@ -282,24 +286,18 @@ try {
             if (shouldPublish(apiKey, publish)) {
               let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath} --source=${source} --relationship=${relationship} --active=${active}`;
               const mVer = semver.coerce(manifestVersion);
-              if (mVer && semver.gte(mVer, sourceFlagMinVer)) {
-                publishCommand = `${publishCommand} --source=github-action`;
-              } else {
-                core.warning(
-                  `The version of the CLI (${manifestVersion}) does not support the \`--source\` flag. Please upgrade to v0.8.1 or later.`
-                );
-              }
-              if (mVer && assetLabels && semver.gte(mVer, labelsFlagMinVer)) {
-                publishCommand = `${publishCommand} --asset-label=${assetLabels
-                  .split(",")
-                  .map((label) => label.trim())
-                  .filter((label) => label !== "")
-                  .join(",")}`;
-              } else if (assetLabels) {
-                core.warning(
-                  `The version of the CLI (${manifestVersion}) does not support the \`--labels\` flag. Please upgrade to v0.9.1 or later.`
-                );
-              }
+              publishCommand = `${publishCommand} --source=github-action`;
+              publishCommand = `${publishCommand} --asset-label=${assetLabels
+                .split(",")
+                .map((label) => label.trim())
+                .filter((label) => label !== "")
+                .join(",")}`;
+              publishCommand = `${publishCommand} --product-label=${productLabels
+                .split(",")
+                .map((label) => label.trim())
+                .filter((label) => label !== "")
+                .join(",")}`;
+              publishCommand = `${publishCommand} --product-id=${productId}`;
               core.info("Sending request to Manifest Server");
               await execWrapper(publishCommand);
             } else {
