@@ -1,8 +1,8 @@
 const fs = require("fs");
 const core = require("@actions/core");
 const cache = require("@actions/tool-cache");
-const artifact = require("@actions/artifact");
-const artifactClient = artifact.create();
+const { DefaultArtifactClient } = require("@actions/artifact");
+const artifactClient = new DefaultArtifactClient();
 const { exec } = require("child_process");
 const util = require("node:util");
 const semver = require("semver");
