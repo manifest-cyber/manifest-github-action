@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - "main"
+      - "fix-labels-with-spaces"
 
 permissions:
   id-token: write
@@ -25,5 +26,5 @@ jobs:
         uses: manifest-cyber/manifest-github-action@main
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
-          asset-labels: "github-action, production"
+          asset-labels: "github-action, production, consumer facing"
           generator: "syft"
