@@ -296,7 +296,7 @@ try {
               core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
             }
             if (shouldPublish(apiKey, publish)) {
-              let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True  --source="${source}" --relationship="${relationship}" --active="${active}" bomFilePath`;
+              let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation="true"  --source="${source}" --relationship="${relationship}" --active="${active}" ${bomFilePath}`;
               const mVer = semver.coerce(manifestVersion);
               publishCommand = `${publishCommand} --source="github-action"`;
               publishCommand = `${publishCommand} --asset-label="${assetLabels
