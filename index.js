@@ -142,9 +142,9 @@ async function generateSBOM(
   let sbomFlags = `--file=${outputPath.replace(
     /\.json$/,
     ""
-  )} --output=${outputFormat} --name=${sbomName} --generator=${generator} --publish=false ${targetPath}`;
+  )} --output="${outputFormat}" --name="${sbomName}" --generator="${generator}" --publish=false ${targetPath}`;
   if (sbomVersion?.length > 0) {
-    sbomFlags = `${sbomFlags} --version=${sbomVersion}`;
+    sbomFlags = `${sbomFlags} --version="${sbomVersion}"`;
   }
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
@@ -155,12 +155,12 @@ async function generateSBOM(
   }
 
   const installCommand =
-    `${manifestBinary} install --generator=${generator} --version=${generatorVersion}`.replace(
+    `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}"`.replace(
       "\n",
       ""
     );
   const generateCommand =
-    `${manifestBinary} sbom --generator-preset=${generatorPreset} --generator-config=${generatorConfig} ${sbomFlags}`.replace(
+    `${manifestBinary} sbom --generator-preset="${generatorPreset}" --generator-config="${generatorConfig}" ${sbomFlags}`.replace(
       "\n",
       ""
     );
@@ -296,20 +296,20 @@ try {
               core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
             }
             if (shouldPublish(apiKey, publish)) {
-              let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation=True --paths=${bomFilePath} --source=${source} --relationship=${relationship} --active=${active}`;
+              let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation="true"  --source="${source}" --relationship="${relationship}" --active="${active}" ${bomFilePath}`;
               const mVer = semver.coerce(manifestVersion);
-              publishCommand = `${publishCommand} --source=github-action`;
-              publishCommand = `${publishCommand} --asset-label=${assetLabels
+              publishCommand = `${publishCommand} --source="github-action"`;
+              publishCommand = `${publishCommand} --asset-label="${assetLabels
                 .split(",")
                 .map((label) => label.trim())
                 .filter((label) => label !== "")
-                .join(",")}`;
-              publishCommand = `${publishCommand} --product-label=${productLabels
+                .join(",")}"`;
+              publishCommand = `${publishCommand} --product-label="${productLabels
                 .split(",")
                 .map((label) => label.trim())
                 .filter((label) => label !== "")
-                .join(",")}`;
-              publishCommand = `${publishCommand} --product-id=${productId}`;
+                .join(",")}"`;
+              publishCommand = `${publishCommand} --product-id="${productId}"`;
               core.info("Sending request to Manifest Server");
               await execWrapper(publishCommand);
             } else {
