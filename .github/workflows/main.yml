@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - "main"
+      - "fix-trivy-default"
 
 permissions:
   id-token: write
