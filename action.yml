@@ -32,7 +32,6 @@ inputs:
   sbomGenerator:
     description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom"
     required: false
-    default: "syft"
   sbomArtifact:
     description: "Boolean to store the generated SBOM as an artifact. An artifact will not be created when set to anything other than `true`."
     required: false

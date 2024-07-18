@@ -154,6 +154,10 @@ async function generateSBOM(
     generatorVersion = "v1.6.0";
   }
 
+  if (generator === "trivy" && generatorVersion === "") {
+    generatorVersion = "v0.52.2";
+  }
+
   const installCommand =
     `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}"`.replace(
       "\n",
