@@ -155,7 +155,7 @@ async function generateSBOM(
   }
 
   if (generator === "trivy" && generatorVersion === "") {
-    generatorVersion = "0.52.2";
+    generatorVersion = "v0.52.2";
   }
 
   const installCommand =
