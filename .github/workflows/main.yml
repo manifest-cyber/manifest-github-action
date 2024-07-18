@@ -22,8 +22,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@main
+        uses: manifest-cyber/manifest-github-action@fix-trivy-default
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
-          generator: "syft"
+          generator: "trivy"
