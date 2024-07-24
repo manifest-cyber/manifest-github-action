@@ -180,6 +180,13 @@ ADVANCED USERS: Flags the Manifest CLI passes through to the generator.
 set the SBOM as active. Expects either `true` or `false`.
 Default: `true`.
 
+### `githubToken`
+
+**Optional**
+`{STRING}`
+
+The action fetches necessary Github releases from the Github Releases API. If you run into rate limit warnings from Github, the action can use a Github API token with authenticating (which may increase your rate limit beyond public limits).
+
 ---
 
 ## Usage

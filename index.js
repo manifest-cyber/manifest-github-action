@@ -6,16 +6,18 @@ const artifactClient = new DefaultArtifactClient();
 const { exec } = require("child_process");
 const util = require("node:util");
 const semver = require("semver");
-
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit();
+
 const manifestOwner = "manifest-cyber";
 const manifestRepo = "cli";
 const manifestBinary = "manifest-cli";
-const jqOwner = "jqlang";
-const jqRepo = "jq";
 const jqBinary = "jq";
 const tmpPath = "/tmp";
+
+const githubApiToken = core('githubToken') || core('githubtoken') || process.env.GITHUB_TOKEN || undefined;
+const octokit = new Octokit({
+  auth: githubApiToken,
+});
 
 const execPromise = util.promisify(exec);
 
@@ -69,7 +71,6 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   return { manifestVersion, binaryUrl };
 }
 
-// TODO: Add support for caching the CLI
 async function getCLI(version, url, binary) {
   const dest = `${tmpPath}${url.substring(url.lastIndexOf("/"))}`;
   const binaryPath = `${tmpPath}/${binary}`;
@@ -81,7 +82,11 @@ async function getCLI(version, url, binary) {
 
   if (!fileExists(dest)) {
     core.info(`Downloading the latest version of the CLI from ${url}`);
-    await cache.downloadTool(url, dest);
+    await cache.downloadTool(
+      url,
+      dest,
+      githubApiToken ? `token ${githubApiToken}` : undefined
+    );
   } else {
     core.info("CLI tarball already exists, skipping download");
   }
