@@ -8,12 +8,12 @@ const util = require("node:util");
 const semver = require("semver");
 
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit();
+const octokit = new Octokit({
+  auth: core('githubToken') || core('githubToken') || process.env.GITHUB_TOKEN || undefined,
+});
 const manifestOwner = "manifest-cyber";
 const manifestRepo = "cli";
 const manifestBinary = "manifest-cli";
-const jqOwner = "jqlang";
-const jqRepo = "jq";
 const jqBinary = "jq";
 const tmpPath = "/tmp";
 
