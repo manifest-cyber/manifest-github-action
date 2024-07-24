@@ -6,16 +6,18 @@ const artifactClient = new DefaultArtifactClient();
 const { exec } = require("child_process");
 const util = require("node:util");
 const semver = require("semver");
-
 const { Octokit } = require("@octokit/rest");
-const octokit = new Octokit({
-  auth: core('githubToken') || core('githubToken') || process.env.GITHUB_TOKEN || undefined,
-});
+
 const manifestOwner = "manifest-cyber";
 const manifestRepo = "cli";
 const manifestBinary = "manifest-cli";
 const jqBinary = "jq";
 const tmpPath = "/tmp";
+
+const githubApiToken = core('githubToken') || core('githubToken') || process.env.GITHUB_TOKEN || undefined;
+const octokit = new Octokit({
+  auth: githubApiToken,
+});
 
 const execPromise = util.promisify(exec);
 
@@ -81,7 +83,11 @@ async function getCLI(version, url, binary) {
 
   if (!fileExists(dest)) {
     core.info(`Downloading the latest version of the CLI from ${url}`);
-    await cache.downloadTool(url, dest);
+    await cache.downloadTool(
+      url,
+      dest,
+      githubApiToken ? `token ${githubApiToken}` : undefined
+    );
   } else {
     core.info("CLI tarball already exists, skipping download");
   }
