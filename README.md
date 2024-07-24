@@ -180,12 +180,12 @@ ADVANCED USERS: Flags the Manifest CLI passes through to the generator.
 set the SBOM as active. Expects either `true` or `false`.
 Default: `true`.
 
-### `githubToken`
+### Environment Variable - `GITHUB_TOKEN`
 
 **Optional**
 `{STRING}`
 
-The action fetches necessary Github releases from the Github Releases API. If you run into rate limit warnings from Github, the action can use a Github API token with authenticating (which may increase your rate limit beyond public limits).
+The action fetches necessary Github releases from the Github Releases API. If you run into rate limit warnings from Github, the action can use a Github API token with authenticating (which may increase your rate limit beyond public limits). See usage examples for more.
 
 ---
 
@@ -249,6 +249,27 @@ In this example, all depedencies would be installed by the action, generating an
     sbomName: ${{ env.GITHUB_JOB }}-${{ env.GITHUB_REPOSITORY_OWNER }}
     sbomVersion: v1.0.0-${{ steps.set-date.outputs.date }}-${{ steps.set-sha.outputs.sha }}
     sbomOutput: cyclonedx-json
+```
+
+### Using your own Github API token
+
+```
+- name: Set version
+  id: set-date
+  run: echo "date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+- name: Set short sha
+  id: set-sha
+  run: echo "sha=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_OUTPUT
+- name: generate SBOM
+  uses: manifest-cyber/manifest-github-action@main
+  id: transmit
+  with:
+    apiKey: ${{ secrets.MANIFEST_API_KEY }}
+    sbomName: ${{ env.GITHUB_JOB }}-${{ env.GITHUB_REPOSITORY_OWNER }}
+    sbomVersion: v1.0.0-${{ steps.set-date.outputs.date }}-${{ steps.set-sha.outputs.sha }}
+    sbomOutput: cyclonedx-json
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Local Testing
