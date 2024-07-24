@@ -14,7 +14,7 @@ const manifestBinary = "manifest-cli";
 const jqBinary = "jq";
 const tmpPath = "/tmp";
 
-const githubApiToken = core('githubToken') || core('githubtoken') || process.env.GITHUB_TOKEN || undefined;
+const githubApiToken = process.env.GITHUB_TOKEN || undefined;
 const octokit = new Octokit({
   auth: githubApiToken,
 });
