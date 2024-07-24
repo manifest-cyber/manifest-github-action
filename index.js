@@ -14,7 +14,7 @@ const manifestBinary = "manifest-cli";
 const jqBinary = "jq";
 const tmpPath = "/tmp";
 
-const githubApiToken = core('githubToken') || core('githubToken') || process.env.GITHUB_TOKEN || undefined;
+const githubApiToken = core('githubToken') || core('githubtoken') || process.env.GITHUB_TOKEN || undefined;
 const octokit = new Octokit({
   auth: githubApiToken,
 });
@@ -71,7 +71,6 @@ async function getReleaseVersion(owner, repo, targetAsset) {
   return { manifestVersion, binaryUrl };
 }
 
-// TODO: Add support for caching the CLI
 async function getCLI(version, url, binary) {
   const dest = `${tmpPath}${url.substring(url.lastIndexOf("/"))}`;
   const binaryPath = `${tmpPath}/${binary}`;
