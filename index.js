@@ -156,11 +156,11 @@ async function generateSBOM(
   }
 
   if (generator === "syft" && generatorVersion === "") {
-    generatorVersion = "v1.6.0";
+    generatorVersion = "v1.11.1";
   }
 
   if (generator === "trivy" && generatorVersion === "") {
-    generatorVersion = "v0.52.2";
+    generatorVersion = "v0.54.1";
   }
 
   const installCommand =
