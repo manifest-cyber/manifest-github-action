@@ -233,7 +233,7 @@ try {
 
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
-  const active = core.getInput("active") || "true";
+  const active = core.getInput("active");
   const assetLabels =
     core.getInput("sbomLabels") ||
     core.getInput("bomLabels") ||
