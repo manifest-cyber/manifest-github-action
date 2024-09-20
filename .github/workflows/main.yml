@@ -7,7 +7,7 @@ concurrency:
 on:
   push:
     branches:
-      - "mfst-3327/update-active-flag"
+      - "main"
 
 permissions:
   id-token: write
@@ -22,9 +22,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@mfst-3327/update-active-flag
+        uses: manifest-cyber/manifest-github-action@main
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          active: "false"
