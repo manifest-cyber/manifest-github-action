@@ -233,7 +233,7 @@ try {
 
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
-  const active = core.getInput("active") || "true";
+  const active = core.getInput("active");
   const assetLabels =
     core.getInput("sbomLabels") ||
     core.getInput("bomLabels") ||
@@ -305,7 +305,24 @@ try {
               core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
             }
             if (shouldPublish(apiKey, publish)) {
-              let publishCommand = `MANIFEST_API_KEY=${apiKey} ${manifestBinary} publish --ignore-validation="true"  --source="${source}" --relationship="${relationship}" --active="${active}" ${bomFilePath}`;
+              // Add the defaults
+              let publishCommandParts = [
+                `MANIFEST_API_KEY=${apiKey}`,
+                `${manifestBinary}`,
+                `publish`,
+                `--ignore-validation="true"`,
+              ];
+              if (source) {
+                publishCommandParts.push(`--source="${source}"`);
+              }
+              if (relationship) {
+                publishCommandParts.push(`--relationship="${relationship}"`);
+              }
+              if (active) {
+                publishCommandParts.push(`--active="${active}"`);
+              }
+              publishCommandParts.push(bomFilePath);
+              let publishCommand = publishCommandParts.join(" ");
               const mVer = semver.coerce(manifestVersion);
               publishCommand = `${publishCommand} --source="github-action"`;
               publishCommand = `${publishCommand} --asset-label="${assetLabels
