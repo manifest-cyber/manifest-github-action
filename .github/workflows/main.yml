@@ -8,7 +8,6 @@ on:
   push:
     branches:
       - "main"
-      - "feat-api-uri"
 
 permissions:
   id-token: write
@@ -23,9 +22,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@feat-api-uri
+        uses: manifest-cyber/manifest-github-action@main
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          apiUri: "https://api.manifestcyber.com/v1"
