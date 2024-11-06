@@ -156,11 +156,11 @@ async function generateSBOM(
   }
 
   if (generator === "syft" && generatorVersion === "") {
-    generatorVersion = "v1.11.1";
+    generatorVersion = "v1.16.0";
   }
 
   if (generator === "trivy" && generatorVersion === "") {
-    generatorVersion = "v0.54.1";
+    generatorVersion = "v0.57.0";
   }
 
   const installCommand =
@@ -239,6 +239,7 @@ try {
     core.getInput("bomLabels") ||
     core.getInput("asset-labels") ||
     "";
+  const apiURI = core.getInput("apiURI");
   const productLabels = core.getInput("product-labels") || "";
   const productId = core.getInput("product-id") || "";
 
@@ -312,6 +313,9 @@ try {
                 `publish`,
                 `--ignore-validation="true"`,
               ];
+              if (apiURI) {
+                publishCommandParts.push(`--api-uri="${apiURI}"`);
+              }
               if (source) {
                 publishCommandParts.push(`--source="${source}"`);
               }
