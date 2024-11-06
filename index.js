@@ -156,7 +156,7 @@ async function generateSBOM(
   }
 
   if (generator === "syft" && generatorVersion === "") {
-    generatorVersion = "v1.16.0";
+    generatorVersion = "v1.11.1";
   }
 
   if (generator === "trivy" && generatorVersion === "") {
