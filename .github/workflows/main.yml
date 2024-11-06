@@ -28,4 +28,4 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          apiUri: "https://api.manifest.cyber"
+          apiUri: "https://api.manifestcyber.com/v1"
