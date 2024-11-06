@@ -85,6 +85,10 @@ inputs:
     description: "set the SBOM as active. Expects either `true` or `false`."
     required: false
 
+  apiUri:
+    description: "set the Manifest API endpoint URI."
+    required: false
+
 runs:
   using: "node20"
   main: "index.js"
