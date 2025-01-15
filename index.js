@@ -144,10 +144,7 @@ async function generateSBOM(
     return;
   }
   validateInput(outputFormat, generator);
-  let sbomFlags = `--file=${outputPath.replace(
-    /\.json$/,
-    ""
-  )} --output="${outputFormat}" --name="${sbomName}" --generator="${generator}" --publish=false ${targetPath}`;
+  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --generator="${generator}" --publish=false ${targetPath}`;
   if (sbomVersion?.length > 0) {
     sbomFlags = `${sbomFlags} --version="${sbomVersion}"`;
   }
