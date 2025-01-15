@@ -179,7 +179,11 @@ async function generateSBOM(
     core.info(`Installed ${generator}`);
     core.info(`Generating SBOM using: ${generateCommand}`);
     await execWrapper(generateCommand).then(() => {
-      core.info(`SBOM Generated: ${outputPath}`);
+      if (fileExists(outputPath)) {
+        core.info(`SBOM Generated: ${outputPath}`);
+      } else {
+        core.setFailed(`Error generating SBOM: ${outputPath} does not exist.`);
+      }
     });
   });
   return outputPath;
