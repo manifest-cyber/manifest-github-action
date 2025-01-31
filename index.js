@@ -234,7 +234,8 @@ try {
 
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
-  const active = core.getInput("active");
+  const active = core.getInput("active"); // Active: true, false
+  const enrich = core.getInput("enrich"); // Enrichment: NONE, PARLAY, etc. If not present org default is used.
   const assetLabels =
     core.getInput("sbomLabels") ||
     core.getInput("bomLabels") ||
@@ -325,6 +326,12 @@ try {
               }
               if (active) {
                 publishCommandParts.push(`--active="${active}"`);
+              }
+              if (enrich) {
+                // If present, we'll opt to enrich the SBOM.
+                // All options are capitalized string, so add here.
+                // For now, an invalid value will be handled by the CLI (same as other values)
+                publishCommandParts.push(`--enrich="${enrich.toUpperCase()}"`);
               }
               publishCommandParts.push(bomFilePath);
               let publishCommand = publishCommandParts.join(" ");
