@@ -179,6 +179,13 @@ ADVANCED USERS: Flags the Manifest CLI passes through to the generator.
 
 set the SBOM as active. Expects either `true` or `false`. If no value is provided, the SBOM will default to the organization's default behavior, which is typically `true`.
 
+### `enrich`
+
+**Optional**
+`{NONE|PARLAY|PARLAY_ADDITIVE}`
+
+Optionally enrich the SBOM with additional data. Expects either `NONE`, `PARLAY`, or `PARLAY_ADDITIVE`. If no value is provided, the SBOM will default to the organization's default behavior.
+
 ### Environment Variable - `GITHUB_TOKEN`
 
 **Optional**
