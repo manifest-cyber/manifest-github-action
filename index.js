@@ -235,7 +235,7 @@ try {
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
   const active = core.getInput("active"); // Active: true, false
-  const enrich = core.getInput("enrich"); // Enrichment: NONE, PARLAY, etc. If not present org default is used.
+  const enrich = core.getInput("enrich"); // Enrichment: NONE, PARLAY, PARLAY_ADDITIVE, etc. If not present org default is used.
   const assetLabels =
     core.getInput("sbomLabels") ||
     core.getInput("bomLabels") ||
