@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - "main"
+      - "chore-update-generators"
 
 permissions:
   id-token: write
@@ -22,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@main
+        uses: manifest-cyber/manifest-github-action@chore-update-generators
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
