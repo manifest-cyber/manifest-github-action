@@ -146,7 +146,7 @@ async function generateSBOM(
   validateInput(outputFormat, generator);
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --generator="${generator}" --publish=false ${targetPath}`;
   if (sbomVersion?.length > 0) {
-    sbomFlags = `${sbomFlags} --version="${sbomVersion}"`;
+    sbomFlags = `${sbomFlags} --version=${sbomVersion}`;
   }
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
