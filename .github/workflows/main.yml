@@ -27,4 +27,5 @@ jobs:
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
-          generator: "trivy"
+          generator: "syft"
+          sbomVersion: ${{ github.sha }}
