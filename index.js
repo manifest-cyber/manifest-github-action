@@ -146,18 +146,22 @@ async function generateSBOM(
   validateInput(outputFormat, generator);
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --generator="${generator}" --publish=false ${targetPath}`;
   if (sbomVersion?.length > 0) {
-    sbomFlags = `${sbomFlags} --version="${sbomVersion}"`;
+    sbomFlags = `${sbomFlags} --version=${sbomVersion}`;
   }
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
 
   if (generator === "syft" && generatorVersion === "") {
-    generatorVersion = "v1.16.0";
+    generatorVersion = "v1.19.0";
   }
 
   if (generator === "trivy" && generatorVersion === "") {
-    generatorVersion = "v0.57.0";
+    generatorVersion = "v0.59.1";
+  }
+
+  if (generator === "cdxgen" && generatorVersion === "") {
+    generatorVersion = "v11.1.8";
   }
 
   const installCommand =
@@ -235,7 +239,7 @@ try {
   const source = core.getInput("source");
   const relationship = core.getInput("relationship");
   const active = core.getInput("active"); // Active: true, false
-  const enrich = core.getInput("enrich"); // Enrichment: NONE, PARLAY, PARLAY_ADDITIVE, etc. If not present org default is used.
+  const enrich = core.getInput("enrich"); // Enrichment: NONE, or ECOSYSTEMS, etc. If not present org default is used.
   const assetLabels =
     core.getInput("sbomLabels") ||
     core.getInput("bomLabels") ||
