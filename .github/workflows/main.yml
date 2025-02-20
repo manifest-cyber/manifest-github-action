@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - "main"
+      - "revert-strip-json"
 
 permissions:
   id-token: write
@@ -22,8 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@main
+        uses: manifest-cyber/manifest-github-action@revert-strip-json
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
-          generator: "syft"
