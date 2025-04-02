@@ -10,7 +10,8 @@ const semver = require("semver");
 const execPromise = util.promisify(exec);
 
 const manifestBinary = "manifest-cli";
-// Use the remote install.sh script from GitHub.
+
+// Use the official install script from GitHub.
 const remoteInstallScriptURL =
   "https://raw.githubusercontent.com/manifest-cyber/cli/main/install.sh";
 
@@ -85,10 +86,7 @@ async function generateSBOM(
     return outputPath;
   }
   validateInput(outputFormat, generator);
-  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --generator="${generator}" --publish=false ${targetPath}`;
-  if (sbomVersion && sbomVersion.length > 0) {
-    sbomFlags = `${sbomFlags} --version=${sbomVersion}`;
-  }
+  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion} --generator="${generator}" --publish=false ${targetPath}`;
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
