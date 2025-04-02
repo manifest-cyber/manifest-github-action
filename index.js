@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 const core = require("@actions/core");
 const { DefaultArtifactClient } = require("@actions/artifact");
 const artifactClient = new DefaultArtifactClient();
@@ -10,7 +11,6 @@ const semver = require("semver");
 const execPromise = util.promisify(exec);
 
 const manifestBinary = "manifest-cli";
-
 // Use the official install script from GitHub.
 const remoteInstallScriptURL =
   "https://raw.githubusercontent.com/manifest-cyber/cli/main/install.sh";
@@ -203,12 +203,14 @@ async function generateSBOM(
     const productLabels = core.getInput("product-labels") || "";
     const productId = core.getInput("product-id") || "";
 
-    // Install the Manifest CLI using the remote install.sh script.
-    const installDir = path.join(process.cwd(), ".manifest");
+    // Create a unique temporary folder inside the system tmp directory.
+    const installDir = fs.mkdtempSync(path.join(os.tmpdir(), "manifest-cli-"));
     const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir}`;
     core.info(`Installing Manifest CLI using command: ${installCommand}`);
     await execWrapper(installCommand);
     core.info("Manifest CLI installed.");
+
+    // Add the install directory to the PATH.
     process.env.PATH = `${installDir}:${process.env.PATH}`;
 
     const outputPath = await generateSBOM(
