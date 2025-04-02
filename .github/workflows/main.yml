@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - "main"
+      - "feat-rework-manifest-cli-install"
 
 permissions:
   id-token: write
@@ -22,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@main
+        uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
