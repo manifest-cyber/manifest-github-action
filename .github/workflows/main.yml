@@ -78,7 +78,8 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"      - name: Generate SBOM
+          sbomPublish: "false"  
+      - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
