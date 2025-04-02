@@ -38,9 +38,9 @@ jobs:
           }
           export -f run_install
           if command -v parallel > /dev/null 2>&1; then
-            parallel -j 10 run_install ::: {1..500}
+            parallel -j 5 run_install ::: {1..200}
           else
-            seq 500 | xargs -n 1 -P 10 -I {} bash -c 'run_install "$1"' _ {}
+            seq 200 | xargs -n 1 -P 5 -I {} bash -c 'run_install "$1"' _ {}
           fi
 
       - name: Generate SBOM
