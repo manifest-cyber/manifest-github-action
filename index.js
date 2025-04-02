@@ -24,7 +24,7 @@ function getCurrentDateFormatted() {
   )}${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
 }
 
-async function execWrapper(cmd, args) {
+async function execWrapper(cmd, args = []) {
   try {
     const { stdout, stderr } = await execPromise({ cmd, args });
     if (stdout) {
@@ -34,7 +34,9 @@ async function execWrapper(cmd, args) {
       console.log(`stderr: ${stderr}`);
     }
   } catch (error) {
-    core.setFailed(`Error executing command: ${cmd} ${args.join(' ')}\n${error}`);
+    core.setFailed(
+      `Error executing command: ${cmd} ${args.join(" ")}\n${error}`
+    );
     throw error;
   }
 }
@@ -103,15 +105,32 @@ async function generateSBOM(
   }
 
   const installCommand = manifestBinary;
-  const installArgs = ["install", `--generator=${generator}`, `--version=${generatorVersion}`];
+  const installArgs = [
+    "install",
+    `--generator=${generator}`,
+    `--version=${generatorVersion}`,
+  ];
   const generateCommand = manifestBinary;
-  const generateArgs = ["sbom", `--generator-preset=${generatorPreset}`, `--generator-config=${generatorConfig}`, ...sbomFlags.split(' ')];
+  const generateArgs = [
+    "sbom",
+    `--generator-preset=${generatorPreset}`,
+    `--generator-config=${generatorConfig}`,
+    ...sbomFlags.split(" "),
+  ];
 
-  core.info(`Installing generator using command: ${installCommand} ${installArgs.join(' ')}`);
+  core.info(
+    `Installing generator using command: ${installCommand} ${installArgs.join(
+      " "
+    )}`
+  );
   await execWrapper(installCommand, installArgs);
   core.info(`Installed ${generator}`);
 
-  core.info(`Generating SBOM using command: ${generateCommand} ${generateArgs.join(' ')}`);
+  core.info(
+    `Generating SBOM using command: ${generateCommand} ${generateArgs.join(
+      " "
+    )}`
+  );
   await execWrapper(generateCommand, generateArgs);
 
   if (fileExists(outputPath)) {
