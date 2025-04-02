@@ -38,9 +38,9 @@ jobs:
           }
           export -f run_install
           if command -v parallel > /dev/null 2>&1; then
-            parallel -j 100 run_install ::: {1..50}
+            parallel -j 10 run_install ::: {1..500}
           else
-            seq 50 | xargs -n 1 -P 100 -I {} bash -c 'run_install "$1"' _ {}
+            seq 500 | xargs -n 1 -P 10 -I {} bash -c 'run_install "$1"' _ {}
           fi
 
       - name: Generate SBOM
@@ -49,7 +49,8 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -57,35 +58,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"  
+          sbomArtifact: false
+          sbomPublish: false  
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -93,35 +99,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -129,35 +140,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -165,35 +181,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -201,35 +222,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -237,35 +263,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -273,35 +304,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -309,49 +345,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -359,35 +402,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -395,35 +443,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -431,35 +484,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -467,35 +525,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -503,49 +566,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -553,35 +623,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -589,35 +664,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -625,35 +705,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -661,35 +746,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -697,49 +787,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -747,35 +844,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -783,35 +885,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -819,35 +926,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -855,35 +967,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -891,49 +1008,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -941,35 +1065,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -977,35 +1106,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1013,35 +1147,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1049,35 +1188,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1085,49 +1229,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1135,35 +1286,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1171,35 +1327,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1207,35 +1368,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1243,35 +1409,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1279,49 +1450,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1329,35 +1507,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1365,35 +1548,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1401,35 +1589,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1437,35 +1630,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1473,49 +1671,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1523,35 +1728,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1559,35 +1769,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1595,35 +1810,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1631,35 +1851,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1667,49 +1892,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1717,35 +1949,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1753,35 +1990,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1789,35 +2031,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1825,35 +2072,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1861,49 +2113,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1911,35 +2170,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1947,35 +2211,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -1983,35 +2252,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2019,35 +2293,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2055,49 +2334,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2105,35 +2391,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2141,35 +2432,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2177,35 +2473,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2213,35 +2514,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2249,49 +2555,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2299,35 +2612,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2335,35 +2653,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2371,35 +2694,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2407,35 +2735,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2443,49 +2776,56 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2493,35 +2833,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2529,35 +2874,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2565,35 +2915,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2601,35 +2956,40 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
 
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
@@ -2637,25 +2997,29 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
       - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@feat-rework-manifest-cli-install
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          sbomPublish: "false"
+          sbomArtifact: false
+          sbomPublish: false
