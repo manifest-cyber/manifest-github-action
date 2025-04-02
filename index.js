@@ -86,7 +86,7 @@ async function generateSBOM(
     return outputPath;
   }
   validateInput(outputFormat, generator);
-  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion} --generator="${generator}" --publish=false ${targetPath}`;
+  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
@@ -209,11 +209,8 @@ async function generateSBOM(
     core.info(`Installing Manifest CLI using command: ${installCommand}`);
     await execWrapper(installCommand);
     core.info("Manifest CLI installed.");
-
-    // Add the install directory to the PATH.
     process.env.PATH = `${installDir}:${process.env.PATH}`;
 
-    // Generate the SBOM. The --name and --version options now reflect the defaults computed above.
     const outputPath = await generateSBOM(
       targetPath,
       bomFilePath,
