@@ -14,14 +14,14 @@ permissions:
   contents: read
 
 jobs:
-  generate-and-publish-sbom:
+  generate-sbom:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: generate SBOM
+      - name: Generate SBOM
         uses: manifest-cyber/manifest-github-action@artifact-logic-adjustments
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
