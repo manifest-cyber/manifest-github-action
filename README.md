@@ -40,6 +40,8 @@ Note that any empty value provided to the input will result in a using the defau
 
 Your Manifest API key. Generate this key in the Manifest Cyber app (https://app.manifestcyber.com), and then store it in your Github repository secrets.
 
+Alternative parameter name: `apikey`
+
 ### `bomFilePath`
 
 **REQUIRED FOR UPLOADING BUT NOT GENERATING** `{STRING}`
@@ -47,6 +49,8 @@ Your Manifest API key. Generate this key in the Manifest Cyber app (https://app.
 The path of the SBOM to upload. This is useful if you are generating the SBOM in a different step (not using this action), and want to upload it (using this action) in a later step.
 
 Accepts CycloneDX or SPDX SBOMs in JSON (recommended), XML, or SPDX tag:value format.
+
+Alternative parameter names: `sbomFilePath`
 
 ### `path`
 
@@ -79,12 +83,16 @@ Accepts any string. Default: `github-action`.
 
 The SBOM name, defaults to repository name.
 
+Alternative parameter names: `bomName`, `name`
+
 ### `sbomVersion`
 
 **Optional**
 `{STRING}`
 
 The SBOM version, defaults to environment variable tag, or commit hash.
+
+Alternative parameter names: `bomVersion`, `version`
 
 ### `sbomOutput`
 
@@ -95,6 +103,8 @@ The SBOM output format, this is needed when passing spdx-json SBOM files.
 
 Default: `cyclonedx-json`.
 
+Alternative parameter names: `sbom-output`, `bomOutput`
+
 ### `sbomGenerator`
 
 **Optional**
@@ -102,6 +112,8 @@ Default: `cyclonedx-json`.
 
 The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom.
 Default: `syft`.
+
+Alternative parameter names: `bomGenerator`, `generator`
 
 ### `generator-version`
 
@@ -136,6 +148,8 @@ Path to custom config file for generator, if supported.
 
 Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true` or `false`. When unset, the action will upload if an API Key is present.
 
+Alternative parameter names: `bomPublish`, `publish`
+
 ### `sbomLabels`
 
 [DEPREACTED: use `asset-labels` instead]
@@ -143,6 +157,8 @@ Boolean to publish the SBOM to the Manifest Cyber platform. Expects either `true
 `{STRING}`
 
 A comma separated list of labels to apply to the SBOM.
+
+Alternative parameter names: `bomLabels`, `asset-labels`
 
 ### `asset-labels`
 
@@ -171,6 +187,25 @@ A comma separated list of labels to apply to the SBOM product, will only be appl
 `{STRING}`
 
 ADVANCED USERS: Flags the Manifest CLI passes through to the generator.
+
+Alternative parameter names: `bomGeneratorFlags`, `generator-flags`
+
+### `sbomArtifact`
+
+**Optional**
+`{STRING}`
+
+Boolean to upload the SBOM as a GitHub artifact. Expects either `true` or `false`.
+Default: `true`.
+
+Alternative parameter names: `bomArtifact`
+
+### `apiURI`
+
+**Optional**
+`{STRING}`
+
+The URI of the Manifest API. This is useful if you need to use a specific API endpoint.
 
 ### `active`
 
