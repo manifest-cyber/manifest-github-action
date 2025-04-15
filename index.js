@@ -6,7 +6,6 @@ const { DefaultArtifactClient } = require("@actions/artifact");
 const artifactClient = new DefaultArtifactClient();
 const { exec } = require("child_process");
 const util = require("util");
-const semver = require("semver");
 
 const execPromise = util.promisify(exec);
 
