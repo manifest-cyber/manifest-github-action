@@ -1,4 +1,4 @@
-name: Generate and Publish SBOM
+name: Generate SBOM
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -27,4 +27,4 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          artifactName: "example-artifact-name"
+          sbomArtifactName: "example-artifact-name"
