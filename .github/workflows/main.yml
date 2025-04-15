@@ -6,7 +6,7 @@ concurrency:
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "artifact-logic-adjustments"]
     tags: ["v*"]
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: generate SBOM
-        uses: manifest-cyber/manifest-github-action@main
+        uses: manifest-cyber/manifest-github-action@artifact-logic-adjustments
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
