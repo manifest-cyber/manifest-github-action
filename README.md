@@ -200,6 +200,16 @@ Default: `true`.
 
 Alternative parameter names: `bomArtifact`
 
+### `sbomArtifactName`
+
+**Optional**
+`{STRING}`
+
+Custom name for the GitHub artifact when uploading the SBOM. This allows you to specify a unique name to prevent artifact name collisions in your workflow.
+Default: `sbom`.
+
+Alternative parameter names: `bomArtifactName`
+
 ### `apiURI`
 
 **Optional**
@@ -313,6 +323,20 @@ In this example, all depedencies would be installed by the action, generating an
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+### Using custom artifact name
+
+```
+- uses: actions/checkout@v4
+- name: Generate SBOM
+  uses: manifest-cyber/manifest-github-action@main
+  id: generate
+  with:
+    apiKey: ${{ secrets.MANIFEST_API_KEY }}
+    sbomArtifactName: ${{ github.repository_owner }}-${{ github.repository }}-sbom
+```
+
+In this example, the artifact name will include the repository owner and repository name to ensure uniqueness.
 
 ## Local Testing
 

@@ -181,6 +181,8 @@ async function generateSBOM(
     const generatorPreset = core.getInput("generator-preset") || "";
     const uploadArtifactToGithub =
       core.getInput("sbomArtifact") || core.getInput("bomArtifact") || "true";
+    const artifactName =
+      core.getInput("sbomArtifactName") || core.getInput("bomArtifactName") || "sbom";
     const publish =
       core.getInput("sbomPublish") ||
       core.getInput("bomPublish") ||
@@ -228,7 +230,7 @@ async function generateSBOM(
     // Optionally upload the SBOM as an artifact.
     if (outputPath && uploadArtifactToGithub === "true") {
       const upload = await artifactClient.uploadArtifact(
-        "sbom",
+        artifactName,
         [outputPath],
         path.dirname(outputPath)
       );
