@@ -6,8 +6,8 @@ const { DefaultArtifactClient } = require("@actions/artifact");
 const artifactClient = new DefaultArtifactClient();
 const { exec } = require("child_process");
 const util = require("util");
-const semver = require("semver");
-
+const cliVersionInput = core.getInput("manifest-cli-version");
+const cliVersionToInstall = cliVersionInput || "latest";
 const execPromise = util.promisify(exec);
 
 const manifestBinary = "manifest-cli";
@@ -205,7 +205,7 @@ async function generateSBOM(
 
     // Create a unique temporary folder inside the system tmp directory.
     const installDir = fs.mkdtempSync(path.join(os.tmpdir(), "manifest-cli-"));
-    const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir}`;
+    const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
     core.info(`Installing Manifest CLI using command: ${installCommand}`);
     await execWrapper(installCommand);
     core.info("Manifest CLI installed.");

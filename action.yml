@@ -89,6 +89,11 @@ inputs:
     description: "set the Manifest API endpoint URI."
     required: false
 
+  manifest-cli-version:
+    description: 'Version of manifest-cli to install (e.g. v1.2.3)'
+    required: false
+    default: 'latest'
+
 runs:
   using: "node20"
   main: "index.js"
