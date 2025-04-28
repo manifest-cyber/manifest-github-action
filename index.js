@@ -245,7 +245,7 @@ async function generateSBOM(
     // Optionally upload the SBOM as an artifact.
     if (outputPath && artifact === "true") {
       const upload = await artifactClient.uploadArtifact(
-        "sbom",
+        `sbom-${name}-${version}`,
         [outputPath],
         path.dirname(outputPath)
       );
