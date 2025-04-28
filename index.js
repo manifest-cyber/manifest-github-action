@@ -97,47 +97,32 @@ async function generateSBOM(
     return outputPath;
   }
   validateInput(outputFormat, generator);
-
-  // Build SBOM flags
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
-  if (verbose === "true") sbomFlags += " -vvv";
-  if (generatorFlags) sbomFlags += ` -- ${generatorFlags}`;
+  if (verbose === "true") {
+    sbomFlags = `${sbomFlags} -vvv`;
+  }
+  if (generatorFlags) {
+    sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
+  }
 
-  // Default versions
-  if (!generatorVersion) {
-    if (generator === "syft") generatorVersion = "v1.19.0";
-    if (generator === "trivy") generatorVersion = "v0.59.1";
-    if (generator === "cdxgen") generatorVersion = "v11.1.8";
+  // Set default generator versions if not provided.
+  if (generator === "syft" && generatorVersion === "") {
+    generatorVersion = "v1.19.0";
+  }
+  if (generator === "trivy" && generatorVersion === "") {
+    generatorVersion = "v0.59.1";
+  }
+  if (generator === "cdxgen" && generatorVersion === "") {
+    generatorVersion = "v11.1.8";
   }
 
   const installCommand = `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}" --destination="${installDir}"`;
-  core.info(`Installing generator using command: ${installCommand}`);
+  const generateCommand = `${manifestBinary} sbom --generator-preset="${generatorPreset}" --generator-config="${generatorConfig}" ${sbomFlags}`;
 
-  if (generator === "cdxgen" && process.platform !== "win32") {
-    // On *nix, ensure cdxgen ends up on PATH
-    const npmVer = generatorVersion.replace(/^v/, "");
-    const npmCmd = `npm install -g @cyclonedx/cdxgen@${npmVer}`;
-    core.info(`Fallback npm install for cdxgen: ${npmCmd}`);
-    await execWrapper(npmCmd);
-  } else {
-    await execWrapper(installCommand);
-  }
+  core.info(`Installing generator using command: ${installCommand}`);
+  await execWrapper(installCommand);
   core.info(`Installed ${generator}`);
 
-  // Verify generator is available
-  const genBinary =
-    process.platform === "win32" ? `${generator}.exe` : generator;
-  core.info(`Checking availability of generator executable: ${genBinary}`);
-  try {
-    await execWrapper(`${genBinary} --version`);
-    core.info(`${genBinary} is available`);
-  } catch (err) {
-    core.setFailed(`Generator ${genBinary} is not on PATH`);
-    throw err;
-  }
-
-  // Now generate
-  const generateCommand = `${manifestBinary} sbom --generator-preset="${generatorPreset}" --generator-config="${generatorConfig}" ${sbomFlags}`;
   core.info(`Generating SBOM using command: ${generateCommand}`);
   await execWrapper(generateCommand);
 
@@ -153,39 +138,51 @@ async function generateSBOM(
   try {
     const apiKey = core.getInput("apiKey") || core.getInput("apikey");
     core.setSecret(apiKey);
-    if (apiKey) process.env.MANIFEST_API_KEY = apiKey;
+    if (apiKey) {
+      process.env.MANIFEST_API_KEY = apiKey;
+    }
 
     const targetPath = core.getInput("path") || process.cwd();
 
-    // Default name
+    // Compute the default name.
     let name =
       core.getInput("sbomName") ||
       core.getInput("bomName") ||
-      core.getInput("name") ||
-      (process.env.GITHUB_REPOSITORY || "").split("/")[1] ||
-      "default-name";
+      core.getInput("name");
+    if (!name) {
+      if (process.env.GITHUB_REPOSITORY) {
+        // Default to the repository name (after the slash).
+        name = process.env.GITHUB_REPOSITORY.split("/")[1];
+      } else {
+        name = "default-name";
+      }
+    }
 
     const bomFilePath =
       core.getInput("sbomFilePath") ||
       core.getInput("bomFilePath") ||
       `${name}.json`;
 
-    // Default version
+    // Compute the default version.
     let version =
       core.getInput("sbomVersion") ||
       core.getInput("bomVersion") ||
       core.getInput("version") ||
       "";
     if (!version) {
-      const tagName =
-        process.env.GITHUB_REF_TYPE === "tag"
-          ? process.env.GITHUB_REF_NAME
-          : "";
-      version =
-        tagName ||
-        `v0.0.0-${getCurrentDateFormatted()}-${(
-          process.env.GITHUB_SHA || "unknown"
-        ).substring(0, 7)}`;
+      let gittag = "";
+      if (process.env.GITHUB_REF_TYPE === "tag") {
+        gittag = process.env.GITHUB_REF_NAME;
+      }
+      if (gittag) {
+        version = gittag;
+      } else {
+        const currentdate = getCurrentDateFormatted();
+        const shortsha = process.env.GITHUB_SHA
+          ? process.env.GITHUB_SHA.substring(0, 7)
+          : "unknown";
+        version = `v0.0.0-${currentdate}-${shortsha}`;
+      }
     }
 
     const output =
@@ -222,21 +219,21 @@ async function generateSBOM(
     const apiURI = core.getInput("apiURI");
     const productLabels = core.getInput("product-labels") || "";
     const productId = core.getInput("product-id") || "";
+
     const verbose = core.getInput("verbose");
-
-    if (verbose === "true") core.info("Verbose mode enabled");
-
-    // Install manifest-cli
+    if (verbose === "true") {
+      core.info("Verbose mode enabled");
+    }
+    // Create a unique temporary folder inside the system tmp directory.
     const installDir = fs.mkdtempSync(path.join(os.tmpdir(), "manifest-cli-"));
-    const manifestInstallCmd = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
-    core.info(`Installing Manifest CLI: ${manifestInstallCmd}`);
-    await execWrapper(manifestInstallCmd);
+    const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
+    core.info(`Installing Manifest CLI using command: ${installCommand}`);
+    await execWrapper(installCommand);
     core.info("Manifest CLI installed.");
 
-    // Prepend to PATH
+    // Add the install directory to the PATH.
     process.env.PATH = `${installDir}${path.delimiter}${process.env.PATH}`;
 
-    // Generate SBOM
     const outputPath = await generateSBOM(
       targetPath,
       bomFilePath,
@@ -252,45 +249,60 @@ async function generateSBOM(
       installDir
     );
 
-    // Upload as artifact
+    // Optionally upload the SBOM as an artifact.
     if (outputPath && artifact === "true") {
       const upload = await artifactClient.uploadArtifact(
         `sbom-${name}-${version}`,
         [outputPath],
         path.dirname(outputPath)
       );
-      core.info(`SBOM uploaded as artifact: ${upload}`);
+      core.info(`SBOM uploaded to GitHub as an artifact: ${upload}`);
     }
 
-    // Publish if requested
+    // Optionally publish the SBOM if an API key is provided.
     if (shouldPublish(apiKey, publish)) {
-      let parts = [manifestBinary, "publish", `--ignore-validation="true"`];
-      if (apiURI) parts.push(`--api-uri="${apiURI}"`);
-      if (source) parts.push(`--source="${source}"`);
-      if (relationship) parts.push(`--relationship="${relationship}"`);
-      if (active) parts.push(`--active="${active}"`);
-      if (enrich) parts.push(`--enrich="${enrich.toUpperCase()}"`);
-      if (verbose === "true") parts.push("-vvv");
-      parts.push(bomFilePath);
+      let publishCommandParts = [
+        `${manifestBinary}`,
+        `publish`,
+        `--ignore-validation="true"`,
+      ];
+      if (apiURI) {
+        publishCommandParts.push(`--api-uri="${apiURI}"`);
+      }
+      if (source) {
+        publishCommandParts.push(`--source="${source}"`);
+      }
+      if (relationship) {
+        publishCommandParts.push(`--relationship="${relationship}"`);
+      }
+      if (active) {
+        publishCommandParts.push(`--active="${active}"`);
+      }
+      if (enrich) {
+        publishCommandParts.push(`--enrich="${enrich.toUpperCase()}"`);
+      }
+      if (verbose === "true") {
+        publishCommandParts.push(`-vvv`);
+      }
 
-      let cmd = parts.join(" ");
-      cmd = `${cmd} --source="github-action"`;
-      cmd = `${cmd} --asset-label="${assetLabels
+      publishCommandParts.push(bomFilePath);
+      let publishCommand = publishCommandParts.join(" ");
+      publishCommand = `${publishCommand} --source="github-action"`;
+      publishCommand = `${publishCommand} --asset-label="${assetLabels
         .split(",")
-        .map((l) => l.trim())
-        .filter(Boolean)
+        .map((label) => label.trim())
+        .filter((label) => label !== "")
         .join(",")}"`;
-      cmd = `${cmd} --product-label="${productLabels
+      publishCommand = `${publishCommand} --product-label="${productLabels
         .split(",")
-        .map((l) => l.trim())
-        .filter(Boolean)
+        .map((label) => label.trim())
+        .filter((label) => label !== "")
         .join(",")}"`;
-      cmd = `${cmd} --product-id="${productId}"`;
-
-      core.info("Publishing SBOM to Manifest Server");
-      await execWrapper(cmd);
+      publishCommand = `${publishCommand} --product-id="${productId}"`;
+      core.info("Sending request to Manifest Server");
+      await execWrapper(publishCommand);
     } else {
-      core.info("No API Key, skipping publish");
+      core.info("No API Key provided, skipping publish");
     }
   } catch (error) {
     core.setFailed(error.message);
