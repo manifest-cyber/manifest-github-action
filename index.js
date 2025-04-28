@@ -82,7 +82,8 @@ async function generateSBOM(
   generatorPreset,
   generatorConfig,
   generatorFlags,
-  verbose
+  verbose,
+  installDir
 ) {
   if (fileExists(outputPath)) {
     return outputPath;
@@ -234,7 +235,8 @@ async function generateSBOM(
       generatorPreset,
       generatorConfig,
       generatorFlags,
-      verbose
+      verbose,
+      installDir
     );
 
     // Optionally upload the SBOM as an artifact.
