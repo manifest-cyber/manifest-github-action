@@ -108,7 +108,7 @@ async function generateSBOM(
     generatorVersion = "v11.1.8";
   }
 
-  const installCommand = `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}"`;
+  const installCommand = `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}" --destination="${installDir}"`;
   const generateCommand = `${manifestBinary} sbom --generator-preset="${generatorPreset}" --generator-config="${generatorConfig}" ${sbomFlags}`;
 
   core.info(`Installing generator using command: ${installCommand}`);
