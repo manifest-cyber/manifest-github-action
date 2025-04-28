@@ -131,6 +131,9 @@ async function generateSBOM(
   try {
     const apiKey = core.getInput("apiKey") || core.getInput("apikey");
     core.setSecret(apiKey);
+    if (apiKey) {
+      process.env.MANIFEST_API_KEY = apiKey;
+    }
 
     const targetPath = core.getInput("path") || process.cwd();
 
@@ -252,7 +255,6 @@ async function generateSBOM(
     // Optionally publish the SBOM if an API key is provided.
     if (shouldPublish(apiKey, publish)) {
       let publishCommandParts = [
-        `MANIFEST_API_KEY=${apiKey}`,
         `${manifestBinary}`,
         `publish`,
         `--ignore-validation="true"`,

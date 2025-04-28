@@ -28,3 +28,28 @@ jobs:
           asset-labels: "github-action, production"
           generator: "syft"
           verbose: "true"
+
+  generate-and-publish-sbom-2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: generate SBOM
+        uses: manifest-cyber/manifest-github-action@feat-pin-manifest-cli-version
+        with:
+          apiKey: ${{ secrets.MANIFEST_API_KEY }}
+          asset-labels: "github-action, production"
+          generator: "syft"
+          verbose: "true"
+
+  generate-and-publish-sbom-3:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: generate SBOM
+        uses: manifest-cyber/manifest-github
