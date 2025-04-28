@@ -58,3 +58,4 @@ jobs:
           asset-labels: "github-action, production"
           generator: "cdxgen"
           verbose: "true"
+          sbomGeneratorFlags: '--exclude="**/testdata/**"'
