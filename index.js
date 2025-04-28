@@ -270,6 +270,10 @@ async function generateSBOM(
       if (enrich) {
         publishCommandParts.push(`--enrich="${enrich.toUpperCase()}"`);
       }
+      if (verbose === "true") {
+        publishCommandParts.push(`-vvv`);
+      }
+
       publishCommandParts.push(bomFilePath);
       let publishCommand = publishCommandParts.join(" ");
       publishCommand = `${publishCommand} --source="github-action"`;
