@@ -26,7 +26,7 @@ jobs:
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
-          generator: "syft"
+          generator: "cdxgen"
           verbose: "true"
 
   generate-and-publish-sbom-2:
@@ -41,7 +41,7 @@ jobs:
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
-          generator: "syft"
+          generator: "cdxgen"
           verbose: "true"
 
   generate-and-publish-sbom-3:
@@ -56,5 +56,5 @@ jobs:
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
-          generator: "syft"
+          generator: "cdxgen"
           verbose: "true"
