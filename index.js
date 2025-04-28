@@ -80,7 +80,8 @@ async function generateSBOM(
   generatorVersion,
   generatorPreset,
   generatorConfig,
-  generatorFlags
+  generatorFlags,
+  verbose
 ) {
   if (fileExists(outputPath)) {
     return outputPath;
@@ -89,6 +90,10 @@ async function generateSBOM(
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
+  }
+
+  if (verbose === "true") {
+    sbomFlags = `${sbomFlags} -vvv`;
   }
 
   // Set default generator versions if not provided.
@@ -203,6 +208,10 @@ async function generateSBOM(
     const productLabels = core.getInput("product-labels") || "";
     const productId = core.getInput("product-id") || "";
 
+    const verbose = core.getInput("verbose");
+    if (verbose === "true") {
+      core.info("Verbose mode enabled");
+    }
     // Create a unique temporary folder inside the system tmp directory.
     const installDir = fs.mkdtempSync(path.join(os.tmpdir(), "manifest-cli-"));
     const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
@@ -223,7 +232,8 @@ async function generateSBOM(
       generatorVersion,
       generatorPreset,
       generatorConfig,
-      generatorFlags
+      generatorFlags,
+      verbose
     );
 
     // Optionally upload the SBOM as an artifact.

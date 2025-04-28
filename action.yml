@@ -94,6 +94,11 @@ inputs:
     required: false
     default: 'latest'
 
+  verbose:
+    description: "Enable verbose logging. Expects either `true` or `false`."
+    required: false
+    default: "false"
+
 runs:
   using: "node20"
   main: "index.js"
