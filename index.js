@@ -10,7 +10,8 @@ const cliVersionInput = core.getInput("manifest-cli-version");
 const cliVersionToInstall = cliVersionInput || "latest";
 const execPromise = util.promisify(exec);
 
-const manifestBinary = "manifest-cli";
+const manifestBinary =
+  process.platform === "win32" ? "manifest-cli.exe" : "manifest-cli";
 // Use the official install script from GitHub.
 const remoteInstallScriptURL =
   "https://raw.githubusercontent.com/manifest-cyber/cli/main/install.sh";
@@ -220,7 +221,7 @@ async function generateSBOM(
     core.info("Manifest CLI installed.");
 
     // Add the install directory to the PATH.
-    process.env.PATH = `${installDir}:${process.env.PATH}`;
+    process.env.PATH = `${installDir}${path.delimiter}${process.env.PATH}`;
 
     const outputPath = await generateSBOM(
       targetPath,
