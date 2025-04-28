@@ -90,12 +90,11 @@ async function generateSBOM(
   }
   validateInput(outputFormat, generator);
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
-  if (generatorFlags) {
-    sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
-  }
-
   if (verbose === "true") {
     sbomFlags = `${sbomFlags} -vvv`;
+  }
+  if (generatorFlags) {
+    sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
 
   // Set default generator versions if not provided.
