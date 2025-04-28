@@ -28,9 +28,21 @@ function getCurrentDateFormatted() {
 async function execWrapper(cmd) {
   try {
     const { stdout, stderr } = await execPromise(cmd);
-    if (stdout) console.log(`stdout: ${stdout}`);
-    if (stderr) console.log(`stderr: ${stderr}`);
+    if (stdout) {
+      console.log(`stdout: ${stdout}`);
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+    }
   } catch (error) {
+    // Print whatever the child process emitted before it failed:
+    if (error.stdout) {
+      console.log(`stdout: ${error.stdout}`);
+    }
+    if (error.stderr) {
+      console.log(`stderr: ${error.stderr}`);
+    }
+    // Now fail the Action with the full error
     core.setFailed(`Error executing command: ${cmd}\n${error}`);
     throw error;
   }
