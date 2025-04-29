@@ -102,7 +102,7 @@ async function generateSBOM(
     withFileTypes: true,
     encoding: "utf8",
   });
-  core.info(`Files in directory: ${files.join(", ")}`);
+  core.info(`Files in directory: ${JSON.stringify(files.join(", "))}`);
   core.info(`Target path: ${targetPath}`);
 
   validateInput(outputFormat, generator);
@@ -111,8 +111,7 @@ async function generateSBOM(
     sbomFlags = `${sbomFlags} -vvv`;
   }
   if (generatorFlags) {
-    console.log("just for now, ignore the generator flags");
-    // sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
+    sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
 
   // Set default generator versions if not provided.
@@ -133,6 +132,9 @@ async function generateSBOM(
   await execWrapper(installCommand);
   core.info(`Installed ${generator}`);
 
+  core.info("Verifying generator installation");
+  const verfifyCommand = `cdxgen --version`;
+  await execWrapper(verfifyCommand);
   core.info(`Generating SBOM using command: ${generateCommand}`);
   await execWrapper(generateCommand);
 
