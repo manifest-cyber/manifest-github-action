@@ -96,22 +96,6 @@ async function generateSBOM(
   if (fileExists(outputPath)) {
     return outputPath;
   }
-
-  // list all files in the directory
-  const files = fs.readdirSync(targetPath, {
-    withFileTypes: true,
-    encoding: "utf8",
-  });
-
-  for (const file of files) {
-    if (file.isDirectory()) {
-      core.info(`Directory: ${file.name}`);
-    } else {
-      core.info(`File: ${file.name}`);
-    }
-  }
-  core.info(`Target path: ${targetPath}`);
-
   validateInput(outputFormat, generator);
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
   if (verbose === "true") {
@@ -129,7 +113,7 @@ async function generateSBOM(
     generatorVersion = "v0.59.1";
   }
   if (generator === "cdxgen" && generatorVersion === "") {
-    generatorVersion = "v11.2.6";
+    generatorVersion = "v11.1.8";
   }
 
   const installCommand = `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}" --destination="${installDir}"`;
@@ -139,9 +123,6 @@ async function generateSBOM(
   await execWrapper(installCommand);
   core.info(`Installed ${generator}`);
 
-  core.info("Verifying generator installation");
-  const verfifyCommand = `cdxgen --version`;
-  await execWrapper(verfifyCommand);
   core.info(`Generating SBOM using command: ${generateCommand}`);
   await execWrapper(generateCommand);
 
