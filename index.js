@@ -129,7 +129,7 @@ async function generateSBOM(
     generatorVersion = "v0.59.1";
   }
   if (generator === "cdxgen" && generatorVersion === "") {
-    generatorVersion = "v11.1.8";
+    generatorVersion = "v11.2.6";
   }
 
   const installCommand = `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}" --destination="${installDir}"`;
