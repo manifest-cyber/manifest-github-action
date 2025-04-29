@@ -102,7 +102,14 @@ async function generateSBOM(
     withFileTypes: true,
     encoding: "utf8",
   });
-  core.info(`Files in directory: ${JSON.stringify(files.join(", "))}`);
+
+  for (const file of files) {
+    if (file.isDirectory()) {
+      core.info(`Directory: ${file.name}`);
+    } else {
+      core.info(`File: ${file.name}`);
+    }
+  }
   core.info(`Target path: ${targetPath}`);
 
   validateInput(outputFormat, generator);
