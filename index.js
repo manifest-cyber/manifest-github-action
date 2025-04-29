@@ -96,13 +96,23 @@ async function generateSBOM(
   if (fileExists(outputPath)) {
     return outputPath;
   }
+
+  // list all files in the directory
+  const files = fs.readdirSync(targetPath, {
+    withFileTypes: true,
+    encoding: "utf8",
+  });
+  core.info(`Files in directory: ${files.join(", ")}`);
+  core.info(`Target path: ${targetPath}`);
+
   validateInput(outputFormat, generator);
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
   if (verbose === "true") {
     sbomFlags = `${sbomFlags} -vvv`;
   }
   if (generatorFlags) {
-    sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
+    console.log("just for now, ignore the generator flags");
+    // sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
 
   // Set default generator versions if not provided.
