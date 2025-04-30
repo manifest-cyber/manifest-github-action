@@ -94,6 +94,11 @@ inputs:
     required: false
     default: 'latest'
 
+  manifestCLIVersion:
+    description: 'Version of manifest-cli to install (e.g. v1.2.3)'
+    required: false
+    default: 'latest'
+
   verbose:
     description: "Enable verbose logging. Expects either `true` or `false`."
     required: false
