@@ -6,8 +6,6 @@ const { DefaultArtifactClient } = require("@actions/artifact");
 const artifactClient = new DefaultArtifactClient();
 const { exec } = require("child_process");
 const util = require("util");
-const cliVersionInput = core.getInput("manifest-cli-version");
-const cliVersionToInstall = cliVersionInput || "latest";
 const execPromise = util.promisify(exec);
 
 const manifestBinary =
@@ -228,6 +226,12 @@ async function generateSBOM(
     if (verbose === "true") {
       core.info("Verbose mode enabled");
     }
+
+    const cliVersionInput =
+      core.getInput("manifest-cli-version") ||
+      core.getInput("manifestCLIVersion");
+    const cliVersionToInstall = cliVersionInput || "latest";
+
     // Create a unique temporary folder inside the system tmp directory.
     const installDir = fs.mkdtempSync(path.join(os.tmpdir(), "manifest-cli-"));
     const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
