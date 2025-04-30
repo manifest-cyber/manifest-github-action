@@ -104,6 +104,13 @@ inputs:
     required: false
     default: "false"
 
+  sbomArtifactName:
+    description: "The name of the SBOM artifact. Defaults to the 'sbom'"
+    required: false
+    
+  bomArtifactName:
+    description: "The name of the SBOM artifact. Defaults to the 'sbom'"
+    required: false
 runs:
   using: "node20"
   main: "index.js"

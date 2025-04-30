@@ -210,6 +210,17 @@ Default: `sbom`.
 
 Alternative parameter names: `bomArtifactName`
 
+### `manifestCLIVersion`
+
+**Optional**
+`{STRING}`
+
+Use a specific Manifest CLI version.
+
+Default: `latest`.
+
+Alternative parameter names: `manifest-cli-version`
+
 ### `apiURI`
 
 **Optional**
