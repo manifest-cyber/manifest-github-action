@@ -232,6 +232,8 @@ async function generateSBOM(
       core.getInput("manifestCLIVersion");
     const cliVersionToInstall = cliVersionInput || "latest";
 
+    console.log(`Manifest CLI version to install: ${cliVersionToInstall}`);
+
     // Create a unique temporary folder inside the system tmp directory.
     const installDir = fs.mkdtempSync(path.join(os.tmpdir(), "manifest-cli-"));
     const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
