@@ -6,7 +6,7 @@ concurrency:
 
 on:
   push:
-    branches: ["main", "feat-pin-manifest-cli-version"]
+    branches: ["main"]
     tags: ["v*"]
 
 permissions:
@@ -14,15 +14,15 @@ permissions:
   contents: read
 
 jobs:
-  generate-sbom:
+  Generate-sbom:
     runs-on: ubuntu-latest
-
+    name: Generate SBOM
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Generate SBOM
-        uses: manifest-cyber/manifest-github-action@feat-pin-manifest-cli-version
+        uses: manifest-cyber/manifest-github-action@main
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
