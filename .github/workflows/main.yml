@@ -6,7 +6,7 @@ concurrency:
 
 on:
   push:
-    branches: ["main", "feat-pin-manifest-cli-version"]
+    branches: ["feat-pin-manifest-cli-version"]
     tags: ["v*"]
 
 permissions:
@@ -27,4 +27,4 @@ jobs:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
           generator: "syft"
-          manifestCLIVersion: "v0.18.0"
+          manifest-cli-version: "v0.20.0"
