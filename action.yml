@@ -30,7 +30,7 @@ inputs:
     required: false
     default: "cyclonedx-json"
   sbomGenerator:
-    description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom"
+    description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom | csbom"
     required: false
   sbomArtifact:
     description: "Boolean to store the generated SBOM as an artifact. An artifact will not be created when set to anything other than `true`."
@@ -48,7 +48,7 @@ inputs:
 
   ### v1.2.0 ###
   generator:
-    description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom"
+    description: "The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom | csbom"
     required: false
     default: "syft"
 

@@ -59,6 +59,7 @@ function validateInput(output, generator) {
     "sigstore-bom",
     "spdx-sbom-generator",
     "docker-sbom",
+    "csbom",
   ];
   if (output && !validOutput.includes(output)) {
     throw new Error(

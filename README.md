@@ -110,7 +110,7 @@ Alternative parameter names: `sbom-output`, `bomOutput`
 **Optional**
 `{STRING}`
 
-The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom.
+The SBOM generator, defaults to syft. Supports: syft | trivy | cdxgen | sigstore-bom | spdx-sbom-generator | docker-sbom | csbom.
 Default: `syft`.
 
 Alternative parameter names: `bomGenerator`, `generator`
