@@ -109,7 +109,7 @@ async function generateSBOM(
     generatorVersion = "v1.19.0";
   }
   if (generator === "trivy" && generatorVersion === "") {
-    generatorVersion = "v0.59.1";
+    generatorVersion = "v0.69.2";
   }
   if (generator === "cdxgen" && generatorVersion === "") {
     generatorVersion = "v11.1.8";
