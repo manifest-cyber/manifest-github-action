@@ -104,18 +104,14 @@ async function generateSBOM(
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
 
-  // Set default generator versions if not provided.
-  if (generator === "syft" && generatorVersion === "") {
-    generatorVersion = "v1.19.0";
-  }
-  if (generator === "trivy" && generatorVersion === "") {
-    generatorVersion = "v0.69.2";
-  }
-  if (generator === "cdxgen" && generatorVersion === "") {
-    generatorVersion = "v11.1.8";
+  // If no generator version provided, use default version from manifest-cli (MaxSupportedVersion), no --version flag needed.
+  let installCommand = `${manifestBinary} install --generator="${generator}" --destination="${installDir}"`;
+
+  // If a generator version is provided, add the --version flag to the install command.
+  if (generatorVersion) {
+    installCommand = `${installCommand} --version="${generatorVersion}"`;
   }
 
-  const installCommand = `${manifestBinary} install --generator="${generator}" --version="${generatorVersion}" --destination="${installDir}"`;
   const generateCommand = `${manifestBinary} sbom --generator-preset="${generatorPreset}" --generator-config="${generatorConfig}" ${sbomFlags}`;
 
   core.info(`Installing generator using command: ${installCommand}`);
