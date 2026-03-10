@@ -9,6 +9,7 @@ env:
   #sbomGenerator: sigstore-bom
   #sbomGenerator: spdx-sbom-generator
   #sbomGenerator: docker-sbom
+  #sbomGenerator: csbom
   #
   # Choose an SBOM output format from the list below (uncomment one and only one):
   ## NOTE: spdx-json cannot be used with cdxgen or docker-sbom
