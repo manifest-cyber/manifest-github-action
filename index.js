@@ -90,16 +90,25 @@ async function generateSBOM(
   generatorConfig,
   generatorFlags,
   verbose,
-  installDir
+  installDir,
+  detectAI,
+  installDependencies
 ) {
   if (fileExists(outputPath)) {
     return outputPath;
   }
   validateInput(outputFormat, generator);
-  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
+  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false`;
+  if (detectAI === "true") {
+    sbomFlags = `${sbomFlags} --detect-ai`;
+  }
+  if (installDependencies === "true") {
+    sbomFlags = `${sbomFlags} --install-dependencies`;
+  }
   if (verbose === "true") {
     sbomFlags = `${sbomFlags} -vvv`;
   }
+  sbomFlags = `${sbomFlags} ${targetPath}`;
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
@@ -224,6 +233,9 @@ async function generateSBOM(
       core.info("Verbose mode enabled");
     }
 
+    const detectAI = core.getInput("detect-ai") || core.getInput("detectAI");
+    const installDependencies = core.getInput("install-dependencies") || core.getInput("installDependencies");
+
     const cliVersionInput =
       core.getInput("manifest-cli-version") ||
       core.getInput("manifestCLIVersion");
@@ -253,7 +265,9 @@ async function generateSBOM(
       generatorConfig,
       generatorFlags,
       verbose,
-      installDir
+      installDir,
+      detectAI,
+      installDependencies
     );
 
     // Optionally upload the SBOM as an artifact.
