@@ -209,6 +209,7 @@ async function generateSBOM(
     const source = core.getInput("source");
     const relationship = core.getInput("relationship");
     const active = core.getInput("active");
+    const deactivateOlder = core.getInput("deactivate-older");
     const enrich = core.getInput("enrich");
     const assetLabels =
       core.getInput("sbomLabels") ||
@@ -284,6 +285,9 @@ async function generateSBOM(
       }
       if (active) {
         publishCommandParts.push(`--active="${active}"`);
+      }
+      if (deactivateOlder === "true") {
+        publishCommandParts.push(`--deactivate-older`);
       }
       if (enrich) {
         publishCommandParts.push(`--enrich="${enrich.toUpperCase()}"`);
