@@ -85,6 +85,10 @@ inputs:
     description: "set the SBOM as active. Expects either `true` or `false`."
     required: false
 
+  deactivate-older:
+    description: "Mark previous versions of this asset as inactive when publishing this SBOM. Expects either `true` or `false`."
+    required: false
+
   apiUri:
     description: "set the Manifest API endpoint URI."
     required: false
