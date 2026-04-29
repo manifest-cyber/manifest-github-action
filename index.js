@@ -50,7 +50,7 @@ function fileExists(filePath) {
   return fs.existsSync(filePath);
 }
 
-function validateInput(output, generator) {
+function validateInput(output, generator, detectAI) {
   const validOutput = ["spdx-json", "cyclonedx-json"];
   const validGenerator = [
     "syft",
@@ -70,6 +70,9 @@ function validateInput(output, generator) {
     throw new Error(
       `Invalid generator: ${generator}, expected one of ${validGenerator}`
     );
+  }
+  if (detectAI === "true" && output && output !== "cyclonedx-json") {
+    throw new Error("`detect-ai` requires `cyclonedx-json` output format.");
   }
 }
 
@@ -97,7 +100,7 @@ async function generateSBOM(
   if (fileExists(outputPath)) {
     return outputPath;
   }
-  validateInput(outputFormat, generator);
+  validateInput(outputFormat, generator, detectAI);
   let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false`;
   if (detectAI === "true") {
     sbomFlags = `${sbomFlags} --detect-ai`;
@@ -233,8 +236,12 @@ async function generateSBOM(
       core.info("Verbose mode enabled");
     }
 
-    const detectAI = core.getInput("detect-ai") || core.getInput("detectAI");
-    const installDependencies = core.getInput("install-dependencies") || core.getInput("installDependencies");
+    const detectAI =
+      core.getInput("detect-ai").toLowerCase() ||
+      core.getInput("detectAI").toLowerCase();
+    const installDependencies =
+      core.getInput("install-dependencies").toLowerCase() ||
+      core.getInput("installDependencies").toLowerCase();
 
     const cliVersionInput =
       core.getInput("manifest-cli-version") ||
