@@ -50,7 +50,7 @@ function fileExists(filePath) {
   return fs.existsSync(filePath);
 }
 
-function validateInput(output, generator) {
+function validateInput(output, generator, detectAI) {
   const validOutput = ["spdx-json", "cyclonedx-json"];
   const validGenerator = [
     "syft",
@@ -71,6 +71,9 @@ function validateInput(output, generator) {
       `Invalid generator: ${generator}, expected one of ${validGenerator}`
     );
   }
+  if (detectAI === "true" && output && output !== "cyclonedx-json") {
+    throw new Error("`detect-ai` requires `cyclonedx-json` output format.");
+  }
 }
 
 function shouldPublish(apiKey, publish) {
@@ -90,16 +93,25 @@ async function generateSBOM(
   generatorConfig,
   generatorFlags,
   verbose,
-  installDir
+  installDir,
+  detectAI,
+  installDependencies
 ) {
   if (fileExists(outputPath)) {
     return outputPath;
   }
-  validateInput(outputFormat, generator);
-  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false ${targetPath}`;
+  validateInput(outputFormat, generator, detectAI);
+  let sbomFlags = `--file=${outputPath} --output="${outputFormat}" --name="${sbomName}" --version="${sbomVersion}" --generator="${generator}" --publish=false`;
+  if (detectAI === "true") {
+    sbomFlags = `${sbomFlags} --detect-ai`;
+  }
+  if (installDependencies === "true") {
+    sbomFlags = `${sbomFlags} --install-dependencies`;
+  }
   if (verbose === "true") {
     sbomFlags = `${sbomFlags} -vvv`;
   }
+  sbomFlags = `${sbomFlags} ${targetPath}`;
   if (generatorFlags) {
     sbomFlags = `${sbomFlags} -- ${generatorFlags}`;
   }
@@ -225,6 +237,13 @@ async function generateSBOM(
       core.info("Verbose mode enabled");
     }
 
+    const detectAI =
+      core.getInput("detect-ai").toLowerCase() ||
+      core.getInput("detectAI").toLowerCase();
+    const installDependencies =
+      core.getInput("install-dependencies").toLowerCase() ||
+      core.getInput("installDependencies").toLowerCase();
+
     const cliVersionInput =
       core.getInput("manifest-cli-version") ||
       core.getInput("manifestCLIVersion");
@@ -254,7 +273,9 @@ async function generateSBOM(
       generatorConfig,
       generatorFlags,
       verbose,
-      installDir
+      installDir,
+      detectAI,
+      installDependencies
     );
 
     // Optionally upload the SBOM as an artifact.

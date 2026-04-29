@@ -101,6 +101,26 @@ inputs:
     description: 'Version of manifest-cli to install (e.g. v1.2.3)'
     required: false
 
+  detect-ai:
+    description: "Enable AI detection for AIBOM generation. Requires cyclonedx-json output format. Expects either `true` or `false`."
+    required: false
+    default: "false"
+
+  detectAI:
+    description: "Enable AI detection for AIBOM generation. Requires cyclonedx-json output format. Expects either `true` or `false`."
+    required: false
+    default: "false"
+
+  install-dependencies:
+    description: "Allow manifest-cli to auto-install required dependencies (e.g. opengrep for --detect-ai). Expects either `true` or `false`."
+    required: false
+    default: "false"
+
+  installDependencies:
+    description: "Allow manifest-cli to auto-install required dependencies (e.g. opengrep for --detect-ai). Expects either `true` or `false`."
+    required: false
+    default: "false"
+
   verbose:
     description: "Enable verbose logging. Expects either `true` or `false`."
     required: false
