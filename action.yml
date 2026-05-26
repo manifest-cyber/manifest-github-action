@@ -89,6 +89,14 @@ inputs:
     description: "Mark previous versions of this asset as inactive when publishing this SBOM. Expects either `true` or `false`."
     required: false
 
+  deactivate-label:
+    description: "A comma separated list of labels that scopes `deactivate-older`. When set, only previous versions of this asset carrying one of these labels are deactivated. Requires `deactivate-older` to be `true`."
+    required: false
+
+  replace-in-product:
+    description: "After upload, replace the asset's prior version in the product inventory with this version. Requires `product-id` to be set. Expects either `true` or `false`."
+    required: false
+
   apiUri:
     description: "set the Manifest API endpoint URI."
     required: false
