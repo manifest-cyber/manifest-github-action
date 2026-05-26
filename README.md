@@ -181,6 +181,27 @@ The product ID to associate the SBOM with.
 
 A comma separated list of labels to apply to the SBOM product, will only be applied if the product-id is set.
 
+### `deactivate-older`
+
+**Optional**
+`{STRING}`
+
+Mark previous versions of this asset as inactive when publishing this SBOM. Expects either `true` or `false`.
+
+### `deactivate-label`
+
+**Optional**
+`{STRING}`
+
+A comma separated list of labels that scopes `deactivate-older`. When set, only previous versions of this asset carrying one of these labels are deactivated; versions with other labels stay active. Requires `deactivate-older` to be `true`.
+
+### `replace-in-product`
+
+**Optional**
+`{STRING}`
+
+After upload, replace the asset's prior version in the product inventory with this version. Requires `product-id` to be set. Expects either `true` or `false`.
+
 ### `sbomGeneratorFlags`
 
 **Optional**

@@ -222,6 +222,8 @@ async function generateSBOM(
     const relationship = core.getInput("relationship");
     const active = core.getInput("active");
     const deactivateOlder = core.getInput("deactivate-older");
+    const deactivateLabels = core.getInput("deactivate-label") || "";
+    const replaceInProduct = core.getInput("replace-in-product");
     const enrich = core.getInput("enrich");
     const assetLabels =
       core.getInput("sbomLabels") ||
@@ -310,6 +312,9 @@ async function generateSBOM(
       if (deactivateOlder === "true") {
         publishCommandParts.push(`--deactivate-older`);
       }
+      if (replaceInProduct === "true") {
+        publishCommandParts.push(`--replace-in-product`);
+      }
       if (enrich) {
         publishCommandParts.push(`--enrich="${enrich.toUpperCase()}"`);
       }
@@ -331,6 +336,14 @@ async function generateSBOM(
         .filter((label) => label !== "")
         .join(",")}"`;
       publishCommand = `${publishCommand} --product-id="${productId}"`;
+      const cleanedDeactivateLabels = deactivateLabels
+        .split(",")
+        .map((label) => label.trim())
+        .filter((label) => label !== "")
+        .join(",");
+      if (cleanedDeactivateLabels) {
+        publishCommand = `${publishCommand} --deactivate-label="${cleanedDeactivateLabels}"`;
+      }
       core.info("Sending request to Manifest Server");
       await execWrapper(publishCommand);
     } else {
