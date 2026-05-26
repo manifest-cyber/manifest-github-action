@@ -222,7 +222,7 @@ async function generateSBOM(
     const relationship = core.getInput("relationship");
     const active = core.getInput("active");
     const deactivateOlder = core.getInput("deactivate-older");
-    const deactivateLabels = core.getInput("deactivate-label") || "";
+    const deactivateLabels = core.getInput("deactivate-label");
     const replaceInProduct = core.getInput("replace-in-product");
     const enrich = core.getInput("enrich");
     const assetLabels =
