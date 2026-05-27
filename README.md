@@ -1,6 +1,6 @@
 # Manifest Github Action
 
-Use this action to generator and/or upload a generated SBOM to your Manifest account. **Requires a Manifest API key.**
+Use this action to generate and/or upload a generated SBOM to your Manifest account. **Requires a Manifest API key.**
 
 This action will also install all required dependencies including generators, signers etc.
 
