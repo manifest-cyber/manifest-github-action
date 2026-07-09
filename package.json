@@ -15,10 +15,12 @@
   },
   "resolutions": {
     "@actions/http-client": "^3.0.2",
-    "undici": "^6.24.0",
+    "undici": "6.27.0",
     "minimatch": "^9.0.7",
     "brace-expansion": "^2.0.3",
-    "glob": "^11.0.0"
+    "glob": "^11.0.0",
+    "lodash": "4.18.1",
+    "fast-xml-builder": "1.2.1"
   },
   "scripts": {
     "dev": "npm run _ -- cross-env INPUT_BOMFILEPATH=\"./test-sbom-example.json\" INPUT_BOMOUTPUT=\"cyclonedx-json\" node index.js",
