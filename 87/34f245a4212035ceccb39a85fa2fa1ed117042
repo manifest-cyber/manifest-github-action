@@ -1,0 +1,21 @@
+package.json
+  s_72871f21b8cd1f::t_b6d3541f196515 18,21-23
+yarn.lock
+  s_72871f21b8cd1f::t_6c841c16c64763 592-595,597-598,695-698,751,913-916,948-952
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8734f245a4212035ceccb39a85fa2fa1ed117042",
+  "prompts": {},
+  "sessions": {
+    "s_72871f21b8cd1f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "071e2c53-56be-4104-bad9-8803f86a961d",
+        "model": "claude-fable-5"
+      },
+      "human_author": "Marina Rosa <mrosa@manifestcyber.com>"
+    }
+  }
+}
