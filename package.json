@@ -15,7 +15,7 @@
   },
   "resolutions": {
     "@actions/http-client": "^3.0.2",
-    "undici": "6.27.0",
+    "undici": "6.28.0",
     "minimatch": "^9.0.7",
     "brace-expansion": "^2.0.3",
     "glob": "^11.0.0",
