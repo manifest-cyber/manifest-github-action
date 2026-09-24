@@ -19,10 +19,10 @@ jobs:
     name: Generate SBOM
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Generate SBOM
-        uses: manifest-cyber/manifest-github-action@main
+        uses: manifest-cyber/manifest-github-action@29932f237b5c74e7a48c23b155ff7d5c1f17b49c # main
         with:
           apiKey: ${{ secrets.MANIFEST_API_KEY }}
           asset-labels: "github-action, production"
