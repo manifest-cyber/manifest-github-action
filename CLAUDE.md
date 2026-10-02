@@ -30,8 +30,8 @@ There is no test suite, linter, or type checker configured.
 ### Execution flow
 
 1. **Parse inputs** -- reads GitHub Actions inputs via `core.getInput()` with multiple alias names per parameter (e.g., `sbomName` / `bomName` / `name`). Defaults SBOM name to repo name and version to git tag or `v0.0.0-{timestamp}-{shortsha}`.
-2. **Install manifest-cli** -- downloads install script from GitHub, installs binary to a temp directory, adds to PATH. Supports pinning a specific CLI version.
-3. **Generate SBOM** -- `generateSBOM()` installs the chosen generator (`manifest-cli install`) then runs `manifest-cli sbom`. Supported generators: syft, trivy, cdxgen, sigstore-bom, spdx-sbom-generator, docker-sbom, csbom. Output formats: cyclonedx-json, spdx-json.
+2. **Install manifest-cli** -- installs into `$RUNNER_TEMP/manifest-github-action/manifest-cli-<version>` (falling back to `os.tmpdir()`), shared by every step in the job and keyed by the requested CLI version. Skips the download when the binary is already there, and adds the dir to PATH. Supports pinning a specific CLI version.
+3. **Generate SBOM** -- `generateSBOM()` installs the chosen generator (`manifest-cli install --destination=<install dir>`) then runs `manifest-cli sbom`. For syft, trivy and spdx-sbom-generator, which land in the install dir, an existing binary is reused unless `generator-version` is set, and after installing the action checks the binary exists, retrying up to 3 attempts before failing with an error naming the generator and dir. Other generators are installed every run without that check. Supported generators: syft, trivy, cdxgen, sigstore-bom, spdx-sbom-generator, docker-sbom, csbom. Output formats: cyclonedx-json, spdx-json.
 4. **Upload artifact** -- optionally uploads SBOM as a GitHub artifact via `@actions/artifact`.
 5. **Publish** -- if API key is present and publish is not `false`, runs `manifest-cli publish` with labels, product ID, relationship, enrichment options, etc.
 
