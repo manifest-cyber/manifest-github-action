@@ -74,12 +74,16 @@ async function installGeneratorWithRetry(
   installDir
 ) {
   for (let attempt = 1; attempt <= generatorInstallAttempts; attempt++) {
+    let installed = false;
     try {
       await execWrapper(installCommand, { failAction: false });
+      installed = true;
     } catch (error) {
       core.info(`Install attempt ${attempt} failed: ${error.message}`);
+      // A failed attempt can leave a partial binary that would pass the existence check.
+      fs.rmSync(binaryPath, { force: true });
     }
-    if (fileExists(binaryPath)) {
+    if (installed && fileExists(binaryPath)) {
       return;
     }
     if (attempt < generatorInstallAttempts) {
@@ -333,7 +337,7 @@ async function generateSBOM(
     if (fileExists(cliBinaryPath)) {
       core.info(`Reusing Manifest CLI already installed at ${cliBinaryPath}`);
     } else {
-      const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b ${installDir} ${cliVersionToInstall}`;
+      const installCommand = `curl -sSfL ${remoteInstallScriptURL} | sh -s -- -b "${installDir}" ${cliVersionToInstall}`;
       core.info(`Installing Manifest CLI using command: ${installCommand}`);
       await execWrapper(installCommand);
       core.info("Manifest CLI installed.");
